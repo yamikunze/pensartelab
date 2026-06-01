@@ -656,19 +656,19 @@
                     <button id="btn-toggle-edit" style="background-color: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="toggleEditMode()">
                         ✏️ Activar Modo Edición
                     </button>
-                    <span id="edit-status-indicator" style="font-size: 12px; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 5px;">
-                        🟢 Vista de lectura rápida (Mechi)
+                    <span id="edit-status-indicator" style="font-size: 12px; color: #107c41; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                        ☁️ Sincronizado en Tiempo Real (Firebase)
                     </span>
                 </div>
                 <div id="edit-actions-container" style="display: none; gap: 8px; flex-wrap: wrap;">
-                    <button style="background-color: #107c41; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="saveLocalChanges()">
-                        💾 Guardar Local
-                    </button>
+                    <span style="font-size: 11px; background-color: #dcfce7; color: #156534; padding: 6px 12px; border-radius: 6px; font-weight: 700; display: flex; align-items: center; gap: 4px;">
+                        ⚡ Guardado automático activo
+                    </span>
                     <button style="background-color: #b91c1c; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="resetToOriginal()">
                         🧹 Restaurar Original
                     </button>
                     <button style="background-color: #0d9488; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="downloadDataJS()">
-                        📥 Descargar data_calendarios.js
+                        📥 Descargar Backup (JS)
                     </button>
                 </div>
             </div>
@@ -703,14 +703,53 @@
     </footer>
 
     <!-- Cargamos la base de datos de los calendarios -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <script src="data_calendarios.js"></script>
     <script>
         let currentAccount = "Integrar_Cuidados";
         let currentTab = "feed";
         let isEditMode = false;
+        let activeData = null; // Creado dinámicamente desde Firebase!
 
-        // Cargamos los datos desde localStorage si existen; si no, usamos la variable global del archivo JS.
-        let activeData = localStorage.getItem('CALENDARIOS_DATA') ? JSON.parse(localStorage.getItem('CALENDARIOS_DATA')) : CALENDARIOS_DATA;
+        // Configuración de Firebase obtenida por Yami
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFtQUBM-PdkMFCPM14Fr4d_-_UhuU7ClE",
+            authDomain: "calendario-pensarte.firebaseapp.com",
+            databaseURL: "https://calendario-pensarte-default-rtdb.firebaseio.com/",
+            projectId: "calendario-pensarte",
+            storageBucket: "calendario-pensarte.firebasestorage.app",
+            messagingSenderId: "14254962316",
+            appId: "1:14254962316:web:d8d280cf42b1b9275bd8e9",
+            measurementId: "G-C934ZEYW1S"
+        };
+
+        // Inicializamos Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const dbRef = database.ref('calendarios');
+
+        // Escuchamos la base de datos en tiempo real
+        dbRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            
+            if (!data) {
+                // Si la base de datos está vacía, subimos la local original
+                dbRef.set(CALENDARIOS_DATA).then(() => {
+                    activeData = JSON.parse(JSON.stringify(CALENDARIOS_DATA));
+                    initApp();
+                });
+            } else {
+                activeData = data;
+                renderAccountsMenu();
+                
+                // Evitamos pisar el foco si el usuario está escribiendo en pantalla
+                if (!document.activeElement || 
+                    (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA')) {
+                    selectAccount(currentAccount);
+                }
+            }
+        });
 
         function initApp() {
             renderAccountsMenu();
@@ -718,6 +757,7 @@
         }
 
         function renderAccountsMenu() {
+            if (!activeData) return;
             const menu = document.getElementById("accounts-menu");
             menu.innerHTML = "";
             
@@ -738,8 +778,15 @@
         }
 
         function selectAccount(key) {
+            if (!activeData) return;
             currentAccount = key;
-            renderAccountsMenu();
+            
+            // Actualizamos la clase activa en el menú
+            const buttons = document.querySelectorAll(".account-btn");
+            buttons.forEach(btn => {
+                const isCurrent = btn.querySelector("strong").innerText.includes(activeData[key].nombre);
+                btn.classList.toggle("active", isCurrent);
+            });
 
             const acc = activeData[key];
             const header = document.getElementById("selected-account-header");
@@ -780,25 +827,39 @@
             if (isEditMode) {
                 btnToggle.innerHTML = "👁️ Desactivar Modo Edición";
                 btnToggle.style.backgroundColor = "#e11d48"; // Rojo
-                indicator.innerHTML = "🔴 MODO EDICIÓN ACTIVO • Los cambios son interactivos";
+                indicator.innerHTML = "🔴 MODO EDICIÓN ACTIVO • Guardado automático en vivo";
                 indicator.style.color = "#e11d48";
                 actionsContainer.style.display = "flex";
             } else {
                 btnToggle.innerHTML = "✏️ Activar Modo Edición";
                 btnToggle.style.backgroundColor = "#2563eb"; // Azul
-                indicator.innerHTML = "🟢 Vista de lectura rápida (Mechi)";
-                indicator.style.color = "var(--text-muted)";
+                indicator.innerHTML = "☁️ Sincronizado en Tiempo Real (Firebase)";
+                indicator.style.color = "#107c41";
                 actionsContainer.style.display = "none";
             }
             renderContent();
         }
 
+        // Actualiza el dato localmente en cada tipeo, y escribe en Firebase on blur / change
         function updateActiveData(tab, idx, field, value) {
             const acc = activeData[currentAccount];
             if (tab === 'feed') {
                 acc.publicaciones[idx][field] = value;
             } else if (tab === 'stories') {
                 acc.historias[idx][field] = value;
+            }
+        }
+
+        // Sincroniza el campo específico con Firebase al perder foco (blur) o al cambiar select (change)
+        function syncFieldWithFirebase(tab, idx, field, value) {
+            if (tab === 'feed') {
+                database.ref(`calendarios/${currentAccount}/publicaciones/${idx}/${field}`).set(value).then(() => {
+                    showToast("⚡ Guardado automático en la nube");
+                });
+            } else if (tab === 'stories') {
+                database.ref(`calendarios/${currentAccount}/historias/${idx}/${field}`).set(value).then(() => {
+                    showToast("⚡ Guardado automático en la nube");
+                });
             }
         }
 
@@ -819,18 +880,23 @@
                 estado: "🔴 Pendiente"
             });
             
-            renderContent();
-            renderAccountsMenu(); // Para actualizar el contador del menú
-            showToast("➕ Se agregó una nueva fila al final del Excel");
+            database.ref(`calendarios/${currentAccount}/publicaciones`).set(acc.publicaciones).then(() => {
+                renderContent();
+                renderAccountsMenu();
+                showToast("➕ Nueva fila agregada y sincronizada");
+            });
         }
 
         function deleteFeedRow(idx) {
             if (confirm("¿Estás seguro de que querés eliminar esta fila del Excel?")) {
                 const acc = activeData[currentAccount];
                 acc.publicaciones.splice(idx, 1);
-                renderContent();
-                renderAccountsMenu();
-                showToast("🗑️ Fila eliminada");
+                
+                database.ref(`calendarios/${currentAccount}/publicaciones`).set(acc.publicaciones).then(() => {
+                    renderContent();
+                    renderAccountsMenu();
+                    showToast("🗑️ Fila eliminada y sincronizada");
+                });
             }
         }
 
@@ -848,36 +914,34 @@
                 cta: "Sticker enlace / CTA..."
             });
             
-            renderContent();
-            showToast("📸 Se agregó una nueva historia al final");
+            database.ref(`calendarios/${currentAccount}/historias`).set(acc.historias).then(() => {
+                renderContent();
+                showToast("📸 Nueva historia agregada y sincronizada");
+            });
         }
 
         function deleteStoryRow(idx) {
             if (confirm("¿Estás seguro de que querés eliminar esta historia?")) {
                 const acc = activeData[currentAccount];
                 acc.historias.splice(idx, 1);
-                renderContent();
-                showToast("🗑️ Historia eliminada");
+                
+                database.ref(`calendarios/${currentAccount}/historias`).set(acc.historias).then(() => {
+                    renderContent();
+                    showToast("🗑️ Historia eliminada y sincronizada");
+                });
             }
         }
 
-        function saveLocalChanges() {
-            localStorage.setItem('CALENDARIOS_DATA', JSON.stringify(activeData));
-            showToast("💾 ¡Cambios guardados en tu navegador!");
-        }
-
         function resetToOriginal() {
-            if (confirm("⚠️ ¿Estás seguro de que querés borrar todos tus cambios guardados en este navegador y volver al archivo original?")) {
-                localStorage.removeItem('CALENDARIOS_DATA');
-                activeData = JSON.parse(JSON.stringify(CALENDARIOS_DATA));
-                renderAccountsMenu();
-                selectAccount(currentAccount);
-                showToast("🧹 Se restauró el diseño original del archivo.");
+            if (confirm("⚠️ ¿Estás seguro de que querés borrar todos los cambios de Firebase y restaurar los datos por defecto?")) {
+                dbRef.set(CALENDARIOS_DATA).then(() => {
+                    showToast("🧹 Base de datos restaurada por defecto");
+                });
             }
         }
 
         function downloadDataJS() {
-            const dataStr = "// BASE DE DATOS CENTRALIZADA DE CALENDARIOS EDITORALES - JUNIO 2026\n// Modificado interactivamente desde el Visor de Excel\n\nconst CALENDARIOS_DATA = " + JSON.stringify(activeData, null, 2) + ";\n";
+            const dataStr = "// BASE DE DATOS CENTRALIZADA DE CALENDARIOS EDITORALES - JUNIO 2026\n// Backup descargado desde el Visor Colaborativo\n\nconst CALENDARIOS_DATA = " + JSON.stringify(activeData, null, 2) + ";\n";
             const dataBlob = new Blob([dataStr], { type: 'application/javascript' });
             const url = URL.createObjectURL(dataBlob);
             
@@ -889,7 +953,7 @@
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
             
-            showToast("📥 data_calendarios.js descargado. ¡Reemplazalo en GitHub!");
+            showToast("📥 Backup data_calendarios.js descargado con éxito");
         }
 
         function showToast(message, isError = false) {
@@ -899,10 +963,11 @@
             toast.style.display = "flex";
             setTimeout(() => {
                 toast.style.display = "none";
-            }, 3000);
+            }, 2500);
         }
 
         function renderContent() {
+            if (!activeData) return;
             const acc = activeData[currentAccount];
             const container = document.getElementById("content-viewer");
             container.innerHTML = "";
@@ -947,16 +1012,22 @@
                         return `
                             <tr>
                                 <td class="col-entrega" style="padding: 6px 4px;">
-                                    <input type="text" value="${pub.fechaEntrega}" oninput="updateActiveData('feed', ${idx}, 'fechaEntrega', this.value)">
+                                    <input type="text" value="${pub.fechaEntrega}" 
+                                           oninput="updateActiveData('feed', ${idx}, 'fechaEntrega', this.value)"
+                                           onblur="syncFieldWithFirebase('feed', ${idx}, 'fechaEntrega', this.value)">
                                 </td>
                                 <td class="col-publicacion" style="padding: 6px 4px;">
-                                    <input type="text" value="${pub.fechaPublicacion}" style="font-weight: 700; color: #107c41;" oninput="updateActiveData('feed', ${idx}, 'fechaPublicacion', this.value)">
+                                    <input type="text" value="${pub.fechaPublicacion}" style="font-weight: 700; color: #107c41;" 
+                                           oninput="updateActiveData('feed', ${idx}, 'fechaPublicacion', this.value)"
+                                           onblur="syncFieldWithFirebase('feed', ${idx}, 'fechaPublicacion', this.value)">
                                 </td>
                                 <td class="col-tema" style="padding: 6px 4px;">
-                                    <input type="text" value="${pub.tema}" style="font-weight: 600;" oninput="updateActiveData('feed', ${idx}, 'tema', this.value)">
+                                    <input type="text" value="${pub.tema}" style="font-weight: 600;" 
+                                           oninput="updateActiveData('feed', ${idx}, 'tema', this.value)"
+                                           onblur="syncFieldWithFirebase('feed', ${idx}, 'tema', this.value)">
                                 </td>
                                 <td class="col-tipo" style="padding: 6px 4px;">
-                                    <select onchange="updateActiveData('feed', ${idx}, 'tipo', this.value)">
+                                    <select onchange="updateActiveData('feed', ${idx}, 'tipo', this.value); syncFieldWithFirebase('feed', ${idx}, 'tipo', this.value)">
                                         <option value="Feed" ${pub.tipo === 'Feed' ? 'selected' : ''}>Feed</option>
                                         <option value="Reel" ${pub.tipo === 'Reel' ? 'selected' : ''}>Reel</option>
                                         <option value="Historia" ${pub.tipo === 'Historia' ? 'selected' : ''}>Historia</option>
@@ -964,16 +1035,21 @@
                                     </select>
                                 </td>
                                 <td class="col-formato" style="padding: 6px 4px;">
-                                    <input type="text" value="${pub.formato}" oninput="updateActiveData('feed', ${idx}, 'formato', this.value)">
+                                    <input type="text" value="${pub.formato}" 
+                                           oninput="updateActiveData('feed', ${idx}, 'formato', this.value)"
+                                           onblur="syncFieldWithFirebase('feed', ${idx}, 'formato', this.value)">
                                 </td>
                                 <td class="col-diseno" style="padding: 6px 4px;">
-                                    <textarea oninput="updateActiveData('feed', ${idx}, 'indicacionesDiseno', this.value)">${pub.indicacionesDiseno}</textarea>
+                                    <textarea oninput="updateActiveData('feed', ${idx}, 'indicacionesDiseno', this.value)"
+                                              onblur="syncFieldWithFirebase('feed', ${idx}, 'indicacionesDiseno', this.value)">${pub.indicacionesDiseno}</textarea>
                                 </td>
                                 <td class="col-copy" style="padding: 6px 4px;">
-                                    <textarea style="font-size: 11px;" oninput="updateActiveData('feed', ${idx}, 'copy', this.value)">${pub.copy}</textarea>
+                                    <textarea style="font-size: 11px;" 
+                                              oninput="updateActiveData('feed', ${idx}, 'copy', this.value)"
+                                              onblur="syncFieldWithFirebase('feed', ${idx}, 'copy', this.value)">${pub.copy}</textarea>
                                 </td>
                                 <td class="cell-estado" style="padding: 6px 4px; vertical-align: middle;">
-                                    <select style="font-weight: 700;" onchange="updateActiveData('feed', ${idx}, 'estado', this.value); selectAccount(currentAccount);">
+                                    <select style="font-weight: 700;" onchange="updateActiveData('feed', ${idx}, 'estado', this.value); syncFieldWithFirebase('feed', ${idx}, 'estado', this.value)">
                                         <option value="🔴 Pendiente" ${pub.estado.includes('Pendiente') ? 'selected' : ''}>🔴 Pendiente</option>
                                         <option value="🟡 Redactando" ${pub.estado.includes('Redactando') || pub.estado.includes('Redacción') ? 'selected' : ''}>🟡 Redactando</option>
                                         <option value="🟢 Programado" ${pub.estado.includes('Programado') ? 'selected' : ''}>🟢 Programado</option>
@@ -1064,21 +1140,31 @@
                     if (isEditMode) {
                         card.innerHTML = `
                             <div class="story-header" style="flex-direction: column; gap: 5px; align-items: stretch;">
-                                <input type="text" class="story-edit-input" style="font-weight: 800; color: #107c41;" value="${st.semana}" placeholder="Semana (ej. Semana 1)" oninput="updateActiveData('stories', ${idx}, 'semana', this.value)">
-                                <input type="text" class="story-edit-input" style="font-weight: 700; background-color: #eaf5ec; color: #107c41;" value="${st.tema}" placeholder="Tema de la historia" oninput="updateActiveData('stories', ${idx}, 'tema', this.value)">
+                                <input type="text" class="story-edit-input" style="font-weight: 800; color: #107c41;" value="${st.semana}" placeholder="Semana (ej. Semana 1)" 
+                                       oninput="updateActiveData('stories', ${idx}, 'semana', this.value)"
+                                       onblur="syncFieldWithFirebase('stories', ${idx}, 'semana', this.value)">
+                                <input type="text" class="story-edit-input" style="font-weight: 700; background-color: #eaf5ec; color: #107c41;" value="${st.tema}" placeholder="Tema de la historia" 
+                                       oninput="updateActiveData('stories', ${idx}, 'tema', this.value)"
+                                       onblur="syncFieldWithFirebase('stories', ${idx}, 'tema', this.value)">
                             </div>
                             <div class="story-body" style="gap: 5px;">
                                 <div>
                                     <strong style="font-size:10.5px;">Visual / Indicación:</strong>
-                                    <textarea class="story-edit-textarea" style="min-height: 60px;" oninput="updateActiveData('stories', ${idx}, 'visual', this.value)">${st.visual}</textarea>
+                                    <textarea class="story-edit-textarea" style="min-height: 60px;" 
+                                              oninput="updateActiveData('stories', ${idx}, 'visual', this.value)"
+                                              onblur="syncFieldWithFirebase('stories', ${idx}, 'visual', this.value)">${st.visual}</textarea>
                                 </div>
                                 <div>
                                     <strong style="font-size:10.5px;">Interacción:</strong>
-                                    <input type="text" class="story-edit-input" value="${st.interaccion}" placeholder="Encuesta, caja de preguntas, etc." oninput="updateActiveData('stories', ${idx}, 'interaccion', this.value)">
+                                    <input type="text" class="story-edit-input" value="${st.interaccion}" placeholder="Encuesta, caja de preguntas, etc." 
+                                           oninput="updateActiveData('stories', ${idx}, 'interaccion', this.value)"
+                                           onblur="syncFieldWithFirebase('stories', ${idx}, 'interaccion', this.value)">
                                 </div>
                                 <div>
                                     <strong style="font-size:10.5px;">CTA / Enlace:</strong>
-                                    <input type="text" class="story-edit-input" value="${st.cta}" placeholder="Texto de link o sticker..." oninput="updateActiveData('stories', ${idx}, 'cta', this.value)">
+                                    <input type="text" class="story-edit-input" value="${st.cta}" placeholder="Texto de link o sticker..." 
+                                           oninput="updateActiveData('stories', ${idx}, 'cta', this.value)"
+                                           onblur="syncFieldWithFirebase('stories', ${idx}, 'cta', this.value)">
                                 </div>
                             </div>
                             <div class="story-card-delete-bar">
