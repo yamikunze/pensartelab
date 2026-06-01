@@ -291,7 +291,7 @@ const CALENDARIOS_DATA = {
         "tipo": "Feed",
         "formato": "Carrusel",
         "indicacionesDiseno": "Slide 1: Placa moderna en tonos celeste neón y azul eléctrico sobre fondo oscuro. Título de impacto: '¿TENÉS UNA RECETA DE ANTEOJOS? 🩺 Sacale una foto y mandanosla por WhatsApp.'\nSlides siguientes: Explicación simple: 1. Nuestra IA lee los valores sola (Eje, Cilindro, etc.), 2. Te cotizamos en tiempo récord, 3. Elegís el armazón desde casa.",
-        "copy": "Se terminaron las esperas innecesarias y el tener que ir hasta la óptica solo para saber cuánto te sale un presupuesto. En Ilusiones Óptica hacemos magia. ✨🔮\n\n¿Fuiste al oftalmólogo y tenés tu receta en mano? ¡Listo!\n📸 Sacale una foto clara con el celular.\n💬 Envianos la foto por WhatsApp.\n\nGracias a nuestro nuevo **Sistema Óptico Inteligente**, nuestra IA lee automáticamente cada valor de tu receta (ojo derecho, ojo izquierdo, cilindros, ejes y adición) y te cotiza el cristal exacto en minutos. Rápido, preciso y sin moverte de casa.\n\nHacerte tus anteojos nuevos nunca fue tan fácil.\n\n🔗 Hacé clic en el enlace de nuestra biografía para ir directo a nuestro WhatsApp y probar la cotización automática hoy mismo.\n\n#OpticaLanus #SistemaInteligente #RecetaOptica #AnteojosNuevos #SaludVisual #Lanus #CotizacionOnline #OpticaFamiliar",
+        "copy": "Se terminaron las esperas innecesarias y el tener que ir hasta la óptica solo para saber cuánto te sale un presupuesto. En Ilusiones Óptica hacemos magia. ✨🔮\n\n¿Fuiste al oftalmólogo y tenés tu receta en mano? ¡Listo!\n📸 Sacale una foto clara con el celular.\n💬 Envianos la foto por WhatsApp.\n\nGracias a nuestro nuevo **Sistema Óptico Inteligente**, nuestra IA lee automáticamente cada valor de tu receta (ojo derecho, ojo izquierdo, cilindros, ejes y adición) y te cotiza el cristal exacto en minutos. Rápido, preciso y sin moverte de casa.\n\nHacerte tus anteojos nuevos nunca fue tan fácil.\n\n🔗 Hacé clic en el enlace de la bio para ir directo a nuestro WhatsApp y probar la cotización automática hoy mismo.\n\n#OpticaLanus #SistemaInteligente #RecetaOptica #AnteojosNuevos #SaludVisual #Lanus #CotizacionOnline #OpticaFamiliar",
         "estado": "🔴 Pendiente"
       },
       {
@@ -369,15 +369,183 @@ const CALENDARIOS_DATA = {
   "Hosteria_Aguas_Coloradas": {
     "nombre": "🏨 Hostería Aguas Coloradas",
     "rubro": "Turismo & Alojamiento",
-    "objetivos": ["Planificar en base a la información que definamos juntos."],
-    "publicaciones": [],
-    "historias": []
+    "objetivos": [
+      "Impulsar las reservas para los fines de semana de Junio y la temporada alta de invierno (Julio).",
+      "Transmitir la calidez, cobijo y desconexión que ofrece la hostería frente al frío exterior.",
+      "Posicionar la gastronomía casera de montaña como un pilar fundamental de la estadía."
+    ],
+    "publicaciones": [
+      {
+        "fechaEntrega": "Vie 29/05",
+        "fechaPublicacion": "Lun 01/06",
+        "tema": "Experiencia / Calidez",
+        "tipo": "Feed",
+        "formato": "Reel",
+        "indicacionesDiseno": "Video cinematográfico lento: Primer plano de leños crujiendo en la chimenea, el vapor subiendo de una taza de chocolate caliente, la luz dorada de la tarde filtrándose por el ventanal que muestra pinos y montañas frías afuera. Música acústica y suave de fondo.",
+        "copy": "El invierno tiene su propio ritmo, uno que te invita a bajar un cambio y respirar hondo. 🏔️✨\n\nAfuera, el viento frío susurra entre los pinos y decora las montañas de blanco. Adentro, el refugio perfecto te espera: el sonido reconfortante de la leña crujiendo en el hogar, el calor de una taza humeante entre tus manos y la paz de no tener horarios.\n\nEn Hostería Aguas Coloradas, diseñamos cada espacio para que la desconexión sea real. Un refugio de montaña pensado para sanar el alma y redescubrir el valor de los momentos lentos.\n\n❄️ Viví tu propia escapada de invierno. Reservá tu lugar para los próximos fines de semana de junio.\n\n💬 Escribinos por mensaje privado o hace clic en el enlace de la bio para consultar disponibilidad. ¡Te esperamos con el fuego encendido!\n\n#TurismoDeMontaña #EscapadaDeInvierno #HosteríaDeMontaña #DescansoReal #NaturalezaYCalidez #AguasColoradas #ViajarEnInvierno",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Lun 08/06",
+        "fechaPublicacion": "Mié 10/06",
+        "tema": "Gastronomía / Deseo",
+        "tipo": "Feed",
+        "formato": "Carrusel",
+        "indicacionesDiseno": "Slide 1: Foto en plano cenital de una mesa de madera rústica servida frente al ventanal: pan de campo recién horneado con corteza crocante, mermeladas artesanales de frutos rojos, un tazón con dulce de leche casero y café humeante.\nSlide 2: Detalle de una medialuna calentita siendo untada.\nSlide 3: Tarta casera de manzana con canela recién salida del horno.",
+        "copy": "En la montaña, los desayunos no se apuran; se disfrutan. 🥖☕\n\nCreemos que la mejor forma de empezar el día es honrando el paladar. Por eso, en Aguas Coloradas cada mañana te recibimos con sabores que cuentan historias:\n✨ Pan de campo recién horneado por nosotros, con esa corteza crocante que tanto te gusta.\n✨ Mermeladas artesanales elaboradas con frutos cosechados en la región.\n✨ Repostería casera hecha con amor y recetas que reconfortan el cuerpo en los días fríos.\n\nEl olor a café recién molido y el calor del desayuno frente al ventanal con vistas al bosque. De eso se trata descansar de verdad.\n\n🪵 Disfrutá de la estadía con desayuno casero completo incluido en tu reserva.\n\n📩 Hacé tu reserva de junio hoy mismo haciendo clic en el enlace de nuestro perfil.\n\n#GastronomiaCasera #DesayunoDeMontaña #SaboresCaseros #PanDeCampo #EscapadaDeFinDeSemana #AguasColoradas #HosteriasArgentinas",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Vie 12/06",
+        "fechaPublicacion": "Lun 15/06",
+        "tema": "Entorno / Naturaleza",
+        "tipo": "Feed",
+        "formato": "Reel",
+        "indicacionesDiseno": "Video corto recorriendo un sendero de montaña rodeado de pinos con escarcha matutina, el sonido de las hojas crujiendo bajo las botas, la respiración volviéndose vapor en el aire frío y, al final, una toma aérea majestuosa del arroyo o paisaje de Aguas Coloradas.",
+        "copy": "El silencio de la montaña tiene una melodía única. Solo tenés que detenerte a escuchar. 🌲🏔️\n\nCaminar bajo el cobijo de los pinos altos, sentir el aire puro y helado que renueva la energía con cada respiración, y admirar cómo la escarcha de la mañana transforma el paisaje en una postal mágica.\n\nLa ubicación de Hostería Aguas Coloradas te permite acceder directamente a senderos naturales ideales para caminatas tranquilas de invierno, avistaje de aves y paseos en familia, para después volver al calor de la hostería a descansar.\n\nReconectá con la naturaleza en su estado más puro.\n\n💬 Dejanos un comentario o escribinos por WhatsApp si querés que te recomendemos las mejores actividades y paseos para tu próxima estadía.\n\n#Senderismo #NaturalezaPura #PaisajeDeMontaña #TurismoNacional #AirePuro #OtoñoInvierno #AguasColoradas",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Lun 15/06",
+        "fechaPublicacion": "Mié 17/06",
+        "tema": "Día del Padre (21/06)",
+        "tipo": "Feed",
+        "formato": "Imagen fija",
+        "indicacionesDiseno": "Fotografía emotiva y de excelente iluminación de un padre e hijo/a compartiendo un momento de charla cómplice en los sillones de cuero frente al gran hogar a leña de la hostería, con dos tazas de café y un juego de ajedrez sobre la mesa ratona. Estética editorial de catálogo.",
+        "copy": "Este Día del Padre, regalale un momento para detener el tiempo. 🛠️❤️\n\nA veces, el mejor regalo no viene envuelto en papel, sino en forma de una pausa compartida. Un espacio para charlar sin apuro frente al fuego, caminar juntos por el bosque y disfrutar del silencio de la montaña.\n\nEn Aguas Coloradas creamos la **Gift Card Escapada de Invierno**, un regalo personalizado y flexible para sorprender a papá en su día:\n🎁 Estadías con desayuno artesanal de montaña.\n🎁 Acceso exclusivo al salón con hogar a leña y vistas panorámicas.\n🎁 Flexibilidad para elegir la fecha durante toda la temporada invernal.\n\nHacé que su día sea inolvidable y compartan tiempo de calidad juntos.\n\n🔗 Escribinos por mensaje privado y personalizamos tu Gift Card para Papá en minutos.\n\n#DiaDelPadre #RegaloParaPapa #GiftCardTurismo #EscapadaDeMontaña #TiempoEnFamilia #RegalaExperiencias #AguasColoradas",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Vie 19/06",
+        "fechaPublicacion": "Mié 24/06",
+        "tema": "Venta Directa / Reserva",
+        "tipo": "Feed",
+        "formato": "Carrusel",
+        "indicacionesDiseno": "Slide 1: Título elegante sobre foto de habitación acogedora con cama mullida y vistas al bosque helado: 'Tu habitación de invierno está lista. Reservas de Julio abiertas.'\nSlide 2: Detalles de los servicios (calefacción centralizada, camas premium, baño privado, estacionamiento).\nSlide 3: Datos de contacto y redes.",
+        "copy": "Las vacaciones de invierno están a la vuelta de la esquina... ¿Ya planificaste tu descanso? ❄️📆\n\nJulio es el mes de la nieve, el chocolate caliente y los atardeceres mágicos en la montaña. Y en Hostería Aguas Coloradas ya abrimos de manera oficial nuestro calendario de reservas para la temporada alta de invierno.\n\nNuestras habitaciones combinan el encanto rústico de la montaña con el confort moderno para garantizarte un descanso impecable:\n✔️ Calefacción individual regulable para un cobijo perfecto.\n✔️ Camas premium con sábanas de alta calidad.\n✔️ Vistas panorámicas directas al bosque y las sierras desde tu ventana.\n\nAnticipate a la temporada alta y asegurá tu lugar al mejor precio de preventa.\n\n🔗 Hace clic en el enlace de la bio para ver tarifas vigentes y reservar de forma directa por WhatsApp o web. ¡Los cupos se agotan rápido!\n\n#VacacionesDeInvierno #ReservaTuEstadia #PreventaInvierno #TemporadaAlta #AlojamientoTuristico #MontañaArgentina #AguasColoradas",
+        "estado": "🔴 Pendiente"
+      }
+    ],
+    "historias": [
+      {
+        "semana": "Semana 1",
+        "tema": "Interactiva de Inicio",
+        "visual": "Foto del hogar a leña encendido con chispas sutiles. Tipografía minimalista: '¿Con quién te sentarías acá hoy a tomar un café caliente?'",
+        "interaccion": "Caja de respuestas o encuesta interactiva.",
+        "cta": "Sticker interactivos: 'Etiquetá a esa persona especial y planifiquen su fin de semana.'"
+      },
+      {
+        "semana": "Semana 2",
+        "tema": "Deseo / Gastronomía",
+        "visual": "Video corto en primer plano de un waffle calentito con dulce de leche artesanal siendo bañado en hilos de chocolate caliente.",
+        "interaccion": "Ninguna (Foco puro en generar antojo).",
+        "cta": "Sticker enlace a WhatsApp: '¡Quiero merendar esto ya!'"
+      },
+      {
+        "semana": "Semana 3",
+        "tema": "Especial Día del Padre",
+        "visual": "Diseño elegante de la Gift Card Aguas Coloradas para Papá, flotando sobre fondo de pinos y bosque con neblina de mañana.",
+        "interaccion": "Encuesta interactiva: 'A papá le gustaría más: Escapada Aventura / Relax frente al fuego'.",
+        "cta": "Sticker enlace directo a WhatsApp: 'Reservar Regalo de Papá'."
+      },
+      {
+        "semana": "Semana 4",
+        "tema": "Venta / Reserva Directa",
+        "visual": "Imagen nocturna nítida de la hostería iluminada bajo un cielo estrellado imponente. Texto: 'Últimas habitaciones disponibles para Julio. Reservá antes de que se agoten.'",
+        "interaccion": "Sticker de cuenta regresiva para preventa.",
+        "cta": "Sticker de enlace directo a la web: 'Consultar disponibilidad en vivo'."
+      }
+    ]
   },
   "Hidrovent_SRL": {
     "nombre": "⚙️ Hidrovent SRL",
     "rubro": "Ingeniería Industrial / Ventilación",
-    "objetivos": ["Planificar en base a la información que definamos juntos."],
-    "publicaciones": [],
-    "historias": []
+    "objetivos": [
+      "Destacar soluciones de climatización y ventilación industrial óptimas para el invierno (como la desestratificación térmica).",
+      "Posicionar la experiencia, ingeniería técnica de detalle y calidad metalúrgica nacional de la empresa.",
+      "Generar consultas directas para diagnóstico de renovación de aire en fábricas, galpones y centros logísticos."
+    ],
+    "publicaciones": [
+      {
+        "fechaEntrega": "Vie 29/05",
+        "fechaPublicacion": "Lun 01/06",
+        "tema": "Educativo / Técnico",
+        "tipo": "Feed",
+        "formato": "Carrusel",
+        "indicacionesDiseno": "Slide 1: Título limpio e industrial sobre fondo gris metalizado con acentos en amarillo seguridad: 'Calidad del Aire en Industrias: ¿Cómo afecta el invierno al rendimiento laboral?'\nSlide 2: Explicación de la acumulación de dióxido de carbono y humedad al cerrar portones por el frío.\nSlide 3: Soluciones técnicas de renovación forzada sin perder climatización.",
+        "copy": "Con la llegada de los días más fríos del año, es habitual que las plantas industriales y galpones cierren portones y ventanas para conservar la temperatura. Sin embargo, esto genera un enemigo silencioso: la acumulación de aire viciado. 🏭⚙️\n\nLa falta de renovación de aire provoca concentración de humedad, gases de combustión y proliferación de virus respiratorios, impactando de forma directa en la salud de los trabajadores y disminuyendo la productividad laboral hasta en un 15%.\n\nEn Hidrovent SRL diseñamos e instalamos **Sistemas de Ventilación Forzada Inteligentes** bajo normas internacionales. Estos sistemas extraen el aire contaminado e inyectan aire filtrado del exterior, controlando el flujo y manteniendo la seguridad ambiental en tu planta sin comprometer la climatización interna.\n\nLa ingeniería al servicio de la salud de tu equipo de trabajo.\n\n⚙️ Protegé tu producción y a tu personal. Pedí un diagnóstico técnico de renovación de aire hoy mismo.\n\n💬 Escribinos por privado o contactanos por mail para asesorarte con nuestros ingenieros.\n\n#VentilacionIndustrial #IngenieriaAmbiental #CalidadDelAire #SeguridadIndustrial #SaludLaboral #ClimatizacionIndustrial #Hidrovent",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Lun 08/06",
+        "fechaPublicacion": "Mié 10/06",
+        "tema": "Obras / Instalaciones",
+        "tipo": "Feed",
+        "formato": "Imagen fija",
+        "indicacionesDiseno": "Fotografía nítida e imponente de una línea de extractores industriales helicoidales de alta capacidad de Hidrovent, instalados en el techo curvo de un galpón logístico moderno de gran envergadura. Ángulo contrapicado para resaltar la escala técnica.",
+        "copy": "Eficiencia a gran escala: Proyecto de ventilación completado en planta logística. 🔩🚚\n\nCompartimos una de nuestras últimas instalaciones realizadas en un centro de distribución logístico de 5.000 m². Para este proyecto de gran volumen, implementamos un sistema integrado de extractores de techo de alta gama diseñados a medida para garantizar el recambio constante de aire y la evacuación de calor residual.\n\nEn Hidrovent SRL abordamos cada proyecto desde la ingeniería de detalle:\n📊 Cálculo de caudales y tasas de renovación necesarias según la actividad.\n🛠️ Fabricación de equipos robustos con materiales de alta resistencia a la corrosión.\n📐 Montaje especializado bajo los más estrictos estándares de seguridad en altura.\n\nSoluciones robustas y duraderas que optimizan la operatividad diaria de las grandes empresas del país.\n\n📞 ¿Tenés un proyecto comercial o industrial en marcha? Cotizá tus sistemas de ventilación con expertos.\n\n#ExtractoresIndustriales #Ventilacionmecanica #ObrasIndustriales #LogisticaArgentina #GalponesIndustriales #HidroventSRL #IngenieriaDeDetalle",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Vie 12/06",
+        "fechaPublicacion": "Lun 15/06",
+        "tema": "Planta / Fabricación",
+        "tipo": "Feed",
+        "formato": "Reel",
+        "indicacionesDiseno": "Video de ritmo dinámico y tomas nítidas: Operario con máscara soldando un chasis de acero, chispas saltando en cámara lenta, corte láser preciso sobre chapa de aluminio, y un ventilador industrial centrífugo de alta potencia girando en su prueba final en banco de ensayos de la fábrica. Música corporativa moderna.",
+        "copy": "Detrás de cada caudal de aire, hay ingeniería argentina de precisión. 🔨⚙️\n\nEn nuestra planta de fabricación, combinamos tecnología avanzada de corte y plegado con la experiencia de soldadores y operarios especializados para dar vida a equipos de ventilación robustos y confiables.\n\nCada extractor, soplador y sistema de climatización que sale de Hidrovent SRL pasa por rigurosos controles de balanceo estático y dinámico, garantizando un funcionamiento silencioso, efficiente y con mínimos requerimientos de mantenimiento a lo largo de los años.\n\nApoyamos el crecimiento de la industria nacional desarrollando soluciones técnicas que cumplen con exigencias internacionales.\n\nDescubrí la calidad constructiva de nuestros equipos industriales.\n\n🔗 Visitá nuestro catálogo online o hablá directo con un ingeniero técnico haciendo clic en el enlace de la bio.\n\n#IndustriaArgentina #Metalurgica #FabricacionNacional #BalanceoDinamico #ExtractoresCentrifugos #SopladoresIndustriales #Hidrovent",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Lun 15/06",
+        "fechaPublicacion": "Mié 17/06",
+        "tema": "Climatización / Eficiencia",
+        "tipo": "Feed",
+        "formato": "Carrusel",
+        "indicacionesDiseno": "Slide 1: Placa de alto impacto con foto de planta industrial calefaccionada. Título: 'Climatizar grandes espacios en invierno de forma eficiente es posible. Descubrí el sistema adecuado.'\nSlide 2: Explicación del fenómeno de estratificación (el aire caliente sube al techo y el frío se queda abajo) y cómo los circuladores y desestratificadores Hidrovent solucionan esto.\nSlide 3: Ahorro energético derivado (hasta 30% en gas/electricidad).",
+        "copy": "¿Sabías que gran parte del aire caliente por el que pagás en calefacción industrial se desperdicia en la parte más alta de tus galpones? 🔥📐\n\nPor leyes físicas naturales, el aire caliente sube (estratificación), acumulándose inútilmente en techos de gran altura, mientras la zona de trabajo del personal permanece fría. Esto obliga a sobredimensionar la calefacción, disparando las facturas de gas y energía.\n\nEn Hidrovent SRL diseñamos soluciones de **Desestratificación Térmica**:\n🌬️ Ventiladores industriales de alta eficiencia colocados en puntos clave que empujan suavemente el aire caliente del techo de vuelta a la zona operativa.\n🌡️ Temperatura homogénea en toda la planta, mejorando el confort de los operarios de inmediato.\n📉 Reducción del consumo de energía de calefacción de hasta un 30%.\n\nClimatizá con eficiencia e ingeniería inteligente.\n\n📩 Dejanos tu consulta por privado. Evaluamos las dimensiones de tu galpón para optimizar tu sistema térmico este invierno.\n\n#ClimatizacionIndustrial #AhorroEnergetico #DesestratificacionTermica #EficienciaEnergetica #GalponesCalefaccionados #HidroventSRL",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Vie 19/06",
+        "fechaPublicacion": "Mié 24/06",
+        "tema": "Catálogo / Venta Directa",
+        "tipo": "Feed",
+        "formato": "Reel",
+        "indicacionesDiseno": "Video estilo presentación de producto premium: Primer plano del ventilador centrífugo industrial de alta presión, mostrando los detalles de la turbina, el motor blindado IP55 y la pintura epoxi protectora. Texto en pantalla enumerando las especificaciones industriales principales de forma muy limpia.",
+        "copy": "Diseñados para durar en las condiciones más exigentes de la industria. 🌪️🏭\n\nPresentamos nuestra línea de **Extractores Centrífugos Industriales de Media y Alta Presión**, ideales para procesos de aspiración de polvo, transporte neumático, ventilación de silos y evacuación de humos en cocinas industriales u soldaduras:\n⚙️ Motores eléctricos normalizados blindados con protección IP55.\n⚙️ Turbinas de álabes curvados balanceadas dinámicamente para cero vibración.\n⚙️ Carcasas soldadas de gran espesor con terminaciones en pintura epoxi anticorrosiva de alta resistencia.\n\nEn Hidrovent SRL adaptamos los acoplamientos, voltajes y materiales (como acero inoxidable) a las especificaciones exactas que requiera tu proceso productivo.\n\nRobustez técnica garantizada.\n\n🔗 Solicitá tu cotización técnica haciendo clic en el enlace de WhatsApp en nuestra bio.\n\n#ExtractoresDeAire #AspiracionIndustrial #AspiracionDePolvos #CentrifugosIndustriales #IngenieriaMecanica #EquipamientoIndustrial #Hidrovent",
+        "estado": "🔴 Pendiente"
+      }
+    ],
+    "historias": [
+      {
+        "semana": "Semana 1",
+        "tema": "Interactiva / Valor",
+        "visual": "Placa azul y amarillo: ¿Sabías que la ventilación insuficiente en invierno aumenta el ausentismo laboral por virus hasta un 40%?",
+        "interaccion": "Encuesta interactiva: 'Lo sabía / No tenía idea'.",
+        "cta": "Sticker enlace a WhatsApp: 'Consultar normativas vigentes'."
+      },
+      {
+        "semana": "Semana 2",
+        "tema": "Obras / Confianza",
+        "visual": "Foto en primer plano de un lote de extractores de techo embalados saliendo de nuestra planta. '¡Equipos listos para despacho a planta automotriz!'",
+        "interaccion": "Ninguna (Valor y prueba social de movimiento).",
+        "cta": "Sticker enlace a WhatsApp: 'Cotizar mi proyecto'."
+      },
+      {
+        "semana": "Semana 3",
+        "tema": "Educación Técnica",
+        "visual": "Video corto (15 seg) que explica cómo realizar una inspección de tensión de correas y limpieza básica en extractores centrífugos en 3 pasos rápidos.",
+        "interaccion": "Caja de preguntas: '¿Qué problema de extracción tenés hoy en tu fábrica?'.",
+        "cta": "Sticker enlace a la web: 'Consultar soporte técnico'."
+      },
+      {
+        "semana": "Semana 4",
+        "tema": "Venta Directa",
+        "visual": "Placa institucional con logo de Hidrovent SRL: 'Ingeniería a medida en ventilación industrial. Proyectos integrales llave en mano en todo el país. Cotizá con especialistas.'",
+        "interaccion": "Ninguna.",
+        "cta": "Sticker de WhatsApp directo: 'Hablar con un Ingeniero'."
+      }
+    ]
   }
 };
