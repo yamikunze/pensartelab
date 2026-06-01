@@ -3,248 +3,1141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pensarte | Laboratorio de Ideas - Agencia de Marketing & Estrategia</title>
-    <meta name="description" content="Viví la experiencia de un laboratorio donde la estrategia y la creatividad se fusionan para escalar tu negocio en Buenos Aires, Argentina.">
-    <link rel="canonical" href="https://pensarte.com.ar">
-    <!-- Tipografía Montserrat (Similar a Croogla Light) -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <!-- Iconos FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Excel de Calendarios Editoriales - Yami & Mechi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --excel-green-dark: #1b4d3e;   /* El verde oscuro exacto del cabezal de Excel en la imagen */
+            --excel-green-light: #2c7a5f;  /* Acentos de botones verde */
+            --excel-grid-line: #d4d4d8;    /* Las líneas grises del Excel */
+            --bg-main: #f4f4f5;
+            --bg-card: #ffffff;
+            --text-main: #18181b;
+            --text-muted: #71717a;
+            
+            /* Colores de Estado */
+            --pendiente-bg: #fee2e2;
+            --pendiente-txt: #991b1b;
+            --redaccion-bg: #fef3c7;
+            --redaccion-txt: #92400e;
+            --programado-bg: #dcfce7;
+            --programado-txt: #166534;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Cabezal tipo Excel/Microsoft 365 */
+        header {
+            background-color: #107c41; /* Verde característico de Microsoft Excel */
+            color: white;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-title h1 {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 1px;
+        }
+
+        .share-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Contenedor General */
+        .app-container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+            max-width: 1800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Selector de Cuentas (Sidebar izquierdo simulando las Hojas del Libro) */
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-card {
+            background-color: var(--bg-card);
+            border: 1px solid #e4e4e7;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-card h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .account-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .account-btn {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .account-btn:hover {
+            background-color: #f4f4f5;
+        }
+
+        .account-btn.active {
+            background-color: #eaf5ec;
+            border-left: 4px solid #107c41;
+            color: #107c41;
+        }
+
+        .account-btn span.rubro {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .account-btn.active span.rubro {
+            color: #107c41;
+            opacity: 0.8;
+        }
+
+        /* Panel de Contenido */
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 0;
+        }
+
+        /* Encabezado e Info de la Cuenta */
+        .account-header {
+            background-color: var(--bg-card);
+            border: 1px solid #e4e4e7;
+            border-radius: 8px;
+            padding: 18px 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .account-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .objectives-box {
+            background-color: #fafafa;
+            border-left: 3px solid #107c41;
+            padding: 10px 15px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 5px;
+        }
+
+        .objectives-box h4 {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #107c41;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .objectives-box ul {
+            list-style-type: none;
+            font-size: 12.5px;
+            color: #4b5563;
+            line-height: 1.4;
+        }
+
+        .objectives-box ul li::before {
+            content: "• ";
+            color: #107c41;
+            font-weight: bold;
+        }
+
+        /* Selector de Tipo de Vista (Simulando Pestañas de Excel abajo/arriba de tabla) */
+        .excel-sheet-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: -1px;
+            z-index: 2;
+        }
+
+        .sheet-tab-btn {
+            background-color: #e4e4e7;
+            border: 1px solid #d4d4d8;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .sheet-tab-btn.active {
+            background-color: var(--bg-card);
+            color: #107c41;
+            border-top: 3px solid #107c41;
+            font-weight: 700;
+            padding-top: 6px;
+        }
+
+        /* PLANILLA EXCEL (Diseño igual a la captura de pantalla) */
+        .excel-container {
+            background-color: var(--bg-card);
+            border: 1px solid #d4d4d8;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Indicador de Tabla (Tabla_1) */
+        .excel-table-bar {
+            background-color: #f4f4f5;
+            border-bottom: 1px solid #d4d4d8;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .table-label {
+            background-color: var(--excel-green-dark);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: -9px;
+            z-index: 10;
+        }
+
+        .table-label::after {
+            content: '∨';
+            font-size: 8px;
+        }
+
+        .excel-icon-btn {
+            background-color: #fafafa;
+            border: 1px solid #d4d4d8;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-size: 10px;
+            color: #4b5563;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Tabla de Excel con Estilo de Cabecera Verde e Indicadores de Filtro */
+        .excel-table-wrapper {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+            text-align: left;
+            min-width: 1200px;
+        }
+
+        /* ESTILO DEL HEADER IGUAL A LA CAPTURA */
+        .excel-table th {
+            background-color: var(--excel-green-dark);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 10px 15px;
+            border-right: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid var(--excel-grid-line);
+            font-size: 12px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .excel-table th .th-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        /* El icono del filtro exacto del Excel */
+        .excel-table th .filter-arrow {
+            font-size: 8px;
+            opacity: 0.8;
+            font-weight: bold;
+        }
+
+        /* Celdas comunes con bordes de grilla Excel */
+        .excel-table td {
+            padding: 12px 15px;
+            border-right: 1px solid var(--excel-grid-line);
+            border-bottom: 1px solid var(--excel-grid-line);
+            vertical-align: top;
+            line-height: 1.45;
+            color: #27272a;
+        }
+
+        .excel-table tr:hover td {
+            background-color: #f1f5f9;
+        }
+
+        /* Columnas con anchos proporcionales */
+        .col-entrega { width: 110px; font-weight: 600; text-align: center; }
+        .col-publicacion { width: 110px; font-weight: 700; text-align: center; color: #107c41; }
+        .col-tema { width: 150px; font-weight: 600; }
+        .col-tipo { width: 90px; text-align: center; }
+        .col-formato { width: 120px; font-weight: 500; }
+        .col-diseno { width: 320px; color: #3f3f46; font-size: 12px; }
+        .col-copy { width: 380px; position: relative; }
+
+        /* Área de copy optimizada con botón */
+        .copy-box {
+            background-color: #fafafa;
+            border: 1px solid #e4e4e7;
+            border-radius: 6px;
+            padding: 10px;
+            max-height: 140px;
+            overflow-y: auto;
+            white-space: pre-line;
+            font-size: 11.5px;
+            font-family: inherit;
+            color: #3f3f46;
+            margin-bottom: 6px;
+        }
+
+        .btn-copy-excel {
+            background-color: #107c41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-copy-excel:hover {
+            background-color: #0b592e;
+        }
+
+        .btn-copy-excel.copied {
+            background-color: #10b981;
+        }
+
+        .cell-estado {
+            width: 100px;
+            text-align: center;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* VISTA DE HISTORIAS */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .story-card {
+            background-color: #fafafa;
+            border: 1px solid #d4d4d8;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e4e4e7;
+            padding-bottom: 8px;
+            font-size: 11.5px;
+        }
+
+        .story-semana {
+            font-weight: 800;
+            color: #107c41;
+            text-transform: uppercase;
+        }
+
+        .story-tema {
+            background-color: #eaf5ec;
+            color: #107c41;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 9.5px;
+        }
+
+        .story-body {
+            font-size: 12px;
+            color: #3f3f46;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .story-cta {
+            background-color: white;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Vacío */
+        .empty-state {
+            padding: 50px 30px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 15px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 12px;
+            max-width: 400px;
+            margin: 0 auto 12px auto;
+        }
+
+        .empty-state button {
+            background-color: #107c41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f4f4f5;
+            border-top: 1px solid #d4d4d8;
+            padding: 12px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ESTILOS DE EDICIÓN - EXCEL INTERACTIVO */
+        .excel-table input[type="text"], 
+        .excel-table select, 
+        .excel-table textarea {
+            width: 100%;
+            border: 1px solid transparent;
+            background: transparent;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            padding: 6px;
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.1s;
+        }
+
+        .excel-table input[type="text"]:focus, 
+        .excel-table select:focus, 
+        .excel-table textarea:focus {
+            background-color: #ffffff;
+            border: 1px solid #107c41; /* Borde verde Excel al enfocar */
+            box-shadow: 0 0 0 2px rgba(16, 124, 65, 0.15);
+        }
+
+        .excel-table textarea {
+            resize: vertical;
+            min-height: 80px;
+            line-height: 1.4;
+        }
+
+        .col-delete {
+            width: 50px;
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        .btn-delete-row {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .btn-delete-row:hover {
+            background-color: #fee2e2;
+        }
+
+        .btn-add-row {
+            background-color: #107c41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            transition: background 0.15s;
+        }
+
+        .btn-add-row:hover {
+            background-color: #0b592e;
+        }
+
+        /* Edición de Historias */
+        .story-edit-input, .story-edit-textarea {
+            width: 100%;
+            border: 1px solid #e4e4e7;
+            background-color: white;
+            border-radius: 4px;
+            padding: 6px;
+            font-family: inherit;
+            font-size: 12px;
+            outline: none;
+            margin-top: 2px;
+        }
+
+        .story-edit-input:focus, .story-edit-textarea:focus {
+            border-color: #107c41;
+            box-shadow: 0 0 0 2px rgba(16, 124, 65, 0.15);
+        }
+
+        .story-card-delete-bar {
+            border-top: 1px solid #e4e4e7;
+            padding-top: 8px;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 5px;
+        }
+
+        .btn-delete-story {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-delete-story:hover {
+            background-color: #fca5a5;
+            color: #7f1d1d;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Navegación -->
-    <nav style="padding: 15px 8%;">
-        <div class="logo-container">
-            <span class="logo-title">PENSARTE</span>
-            <span class="logo-subtitle">Laboratorio de Ideas</span>
+    <header>
+        <div class="header-title">
+            <h1>📊 Libro_Calendarios_Junio.xlsx</h1>
+            <p>Yami & Mechi • Planificación de Redes Sociales</p>
         </div>
-        <ul class="nav-links">
-            <li><a href="#metodo">Servicios</a></li>
-            <li><a href="#esencia">Conocenos</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-            <li class="nav-audit"><a href="#diagnostico" class="audit-nav-btn">Diagnóstico Express</a></li>
-            <li style="display: flex; gap: 15px; margin-left: 20px;">
-                <a href="https://www.instagram.com/pensarte.laboratorio_deideas" target="_blank" style="font-size: 1.2rem; color: var(--primary-color);"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/yamilakunze/" target="_blank" style="font-size: 1.2rem; color: var(--secondary-color);"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:hola@pensarte.com.ar" style="font-size: 1.2rem; color: var(--primary-color);"><i class="fas fa-envelope"></i></a>
-            </li>
-        </ul>
-    </nav>
+        <div class="share-badge">📁 Carpeta Compartible en Google Drive / Dropbox</div>
+    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Viví la experiencia de <strong>Pensarte</strong></h1>
-                <p class="hero-subtitle">Somos más que una agencia de marketing. <strong>Somos un laboratorio de ideas</strong>, donde la estrategia y la creatividad se fusionan para escalar tu negocio.</p>
-                <a href="#contacto" class="cta-button">Agendar Consultoría</a>
+    <div class="app-container">
+        
+        <!-- SIDEBAR (Hojas del Libro de Cuentas) -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <h3>📖 Hojas del Libro</h3>
+                <ul class="account-list" id="accounts-menu">
+                    <!-- Se inyecta dinámicamente -->
+                </ul>
             </div>
-            <div class="hero-image-container">
-                <div class="hero-photo-frame">
-                    <!-- ACÁ VA TU FOTO -->
-                    <img src="tufoto.PNG" alt="Yami Kunze - Fundadora" onerror="this.src='https://via.placeholder.com/400x500?text=Tu+Foto+Aquí'">
+        </div>
+
+        <!-- PANEL DE EXCEL -->
+        <div class="main-panel">
+            
+            <!-- BARRA DE EDICIÓN COLABORATIVA -->
+            <div class="toolbar-edicion" style="background: white; border: 1px solid #e4e4e7; border-radius: 8px; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); gap: 15px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <button id="btn-toggle-edit" style="background-color: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="toggleEditMode()">
+                        ✏️ Activar Modo Edición
+                    </button>
+                    <span id="edit-status-indicator" style="font-size: 12px; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 5px;">
+                        🟢 Vista de lectura rápida (Mechi)
+                    </span>
+                </div>
+                <div id="edit-actions-container" style="display: none; gap: 8px; flex-wrap: wrap;">
+                    <button style="background-color: #107c41; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="saveLocalChanges()">
+                        💾 Guardar Local
+                    </button>
+                    <button style="background-color: #b91c1c; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="resetToOriginal()">
+                        🧹 Restaurar Original
+                    </button>
+                    <button style="background-color: #0d9488; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="downloadDataJS()">
+                        📥 Descargar data_calendarios.js
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Servicios (El Método del Lab) -->
-    <section class="section services" id="metodo">
-        <div class="section-title">
-            <p style="color: #333; font-weight: 700;">NUESTROS SERVICIOS</p>
-            <h2 style="color: var(--secondary-color);">SERVICIOS DEL LABORATORIO</h2>
-            <p style="max-width: 900px; margin: 20px auto; color: #222; text-transform: none; letter-spacing: normal; font-size: 1.25rem; font-weight: 500; line-height: 1.6;">Somos un grupo interdisciplinario de especialistas en <strong>Marketing, Pay Media, Web Developers, UX/UI Designers, Community Managers y Content Producers</strong>. Trabajamos de forma integrada en nuestro laboratorio para desarrollar estrategias que fusionan creatividad y análisis, garantizando resultados que potencian a cada marca.</p>
-        </div>
-        <div class="services-container" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-mobile-alt" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">Redes Sociales</h3>
-                <p style="color: #333;">Posteos, reels, estrategia, textos y publicación.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-bullhorn" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">Publicidad Digital</h3>
-                <p style="color: #333;">Google Ads, Meta, LinkedIn, TikTok.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-pen-nib" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">Diseño Gráfico & Branding</h3>
-                <p style="color: #333;">Creación de nombre e Identidad Visual, logotipos, manual de marca, brochures, packaging, cartelería.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-filter" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">Automatización & Funnel</h3>
-                <p style="color: #333;">CRM, Bots, IA, mails, ERP, seguimiento, lead nurturing, Pixel, GA4.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-shopping-bag" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">MercadoLibre</h3>
-                <p style="color: #333;">Usuario, publicaciones, diseño de plantillas, edición de clips, optimización de la descripción y el título, posicionamiento.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-laptop-code" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">Web & E-commerce</h3>
-                <p style="color: #333;">Diseño, SEO, landing pages, Tiendanube, WooCommerce, Magento, Prestashop, carga de productos, mantenimientos mensuales, backup.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-camera-retro" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">Creación de Contenidos</h3>
-                <p style="color: #333;">Blog SEO, redacción estratégica, email marketing, edición de fotos y videos.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-chart-line" style="color: var(--secondary-color);"></i></div>
-                <h3 style="color: #111;">Informes & Consultoría</h3>
-                <p style="color: #333;">Análisis, seguimiento, propuestas, mejoras y recomendaciones.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Auditoría Express (El Gancho) -->
-    <section class="section audit-lab" id="diagnostico">
-        <div class="audit-container">
-            <div class="audit-header">
-                <span class="badge">NUEVO</span>
-                <h2>Laboratorio de Diagnóstico Express</h2>
-                <p>Obtené un reporte inicial de tu marca en 30 segundos. Nuestra IA analizará tu nivel de autoridad digital.</p>
+            <!-- Toast de Notificación -->
+            <div id="toast-notification" style="position: fixed; bottom: 25px; right: 25px; background-color: #107c41; color: white; padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 13px; display: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.2); align-items: center; gap: 8px; transition: all 0.2s;">
+                <span>💾 ¡Cambios guardados localmente!</span>
             </div>
             
-            <div class="audit-card" id="audit-form-container">
-                <div class="audit-step" id="step-1">
-                    <div class="input-group">
-                        <label><i class="fab fa-instagram"></i> Tu usuario de Instagram</label>
-                        <input type="text" id="audit-ig" placeholder="@tu.marca" required>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-briefcase"></i> ¿A qué se dedica tu negocio?</label>
-                        <select id="audit-sector">
-                            <option value="salud">Salud & Bienestar</option>
-                            <option value="servicios">Servicios Profesionales</option>
-                            <option value="ecommerce">E-commerce / Retail</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label><i class="fas fa-exclamation-triangle"></i> ¿Cuál es tu mayor problema hoy?</label>
-                        <select id="audit-problem">
-                            <option value="leads">Me llegan muchos mensajes pero no vendo</option>
-                            <option value="seguidores">Tengo pocos seguidores / poca interacción</option>
-                            <option value="identidad">Mi marca se ve poco profesional o "barata"</option>
-                            <option value="tiempo">No tengo tiempo para generar contenido real</option>
-                        </select>
-                    </div>
-
-                    <button onclick="startAudit()" class="cta-button gold">Iniciar Escaneo IA</button>
-                </div>
-
-                <!-- Pantalla de Carga -->
-                <div class="audit-loading" id="audit-loading" style="display: none;">
-                    <div class="loader-container">
-                        <div class="loader"></div>
-                        <div class="loader-glow"></div>
-                    </div>
-                    <p id="loading-text">Conectando con el Laboratorio...</p>
-                </div>
-
-                <!-- Resultado del Reporte -->
-                <div class="audit-result" id="audit-result" style="display: none;">
-                    <!-- Se llena con JS -->
-                </div>
+            <!-- Info Cabecera -->
+            <div class="account-header" id="selected-account-header">
+                <!-- Se inyecta con JS -->
             </div>
+
+            <!-- Selector de Pestañas de Vista (Feed / Historias) -->
+            <div class="excel-sheet-tabs">
+                <button class="sheet-tab-btn active" id="tab-feed" onclick="switchTab('feed')">Planilla de Publicaciones (Feed) 📊</button>
+                <button class="sheet-tab-btn" id="tab-stories" onclick="switchTab('stories')">Estrategia de Historias (Stories) 📸</button>
+            </div>
+
+            <!-- TABLA EXCEL CONTENEDOR -->
+            <div class="excel-container" id="content-viewer">
+                <!-- Se inyecta con JS -->
+            </div>
+
         </div>
-    </section>
 
-    <!-- Por qué elegirnos (La Fórmula) -->
-    <section class="section why-us">
-        <div class="formula-box">
-            <h2>¿Por qué elegirnos?</h2>
-            <p style="margin-bottom: 30px;">"En nuestro laboratorio no usamos recetas fijas. Desarrollamos una fórmula única para cada <strong>proyecto</strong>, fusionando datos con creatividad disruptiva."</p>
-            <div class="signature" style="margin-top: 20px;">
-                <p style="font-size: 1.4rem; font-weight: 900; letter-spacing: 2px; font-style: normal; margin-bottom: 5px;">Yami Kunze</p>
-                <p style="font-size: 0.9rem; font-weight: 400; text-transform: uppercase; letter-spacing: 4px; font-style: normal; opacity: 0.9;">Fundadora y Directora Estratégica</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Nuestra Esencia (Storytelling) -->
-    <section class="section essence" id="esencia">
-        <div class="essence-container" style="display: block; text-align: center; max-width: 900px;">
-            <div class="essence-text">
-                <div class="pet-friendly-badge" style="margin: 0 auto 20px;">
-                    <i class="fas fa-paw"></i>
-                    <span>Laboratorio Pet Friendly</span>
-                </div>
-                <h2 style="color: var(--primary-color);">Nuestra Esencia</h2>
-                <p>Nacimos en el área comercial, ahí donde los tiempos queman y la necesidad de vender es real. Durante años vimos ideas increíbles frenadas por no saber cómo mostrarse o por falta de una estrategia de marketing clara.</p>
-                <p style="margin-top: 15px;">En <strong>Pensarte</strong>, no miramos desde afuera: nos involucramos hasta entender el ADN de lo que hacés. Nuestra misión es generar ese match perfecto entre la empresa, el producto y su cliente ideal. No planificamos desde métricas vacías ni creamos desde ideas abstractas; lo hacemos <span style="font-weight: 600;">desde la experiencia real de saber lo que es estar de los dos lados de "el mostrador"</span>.</p>
-                
-                <div class="essence-grid" style="text-align: left;">
-                    <div class="essence-item">
-                        <h3>Nuestro Propósito</h3>
-                        <p>Venimos a desmitificar la vieja idea de que el marketing crea necesidades. Para nosotros, es el puente que permite a las empresas brindar soluciones reales mediante <strong>posicionamiento SEO</strong> y <strong>campañas de Performance</strong>. Somos el aliado que necesitás en medio de la vorágine digital.</p>
-                    </div>
-                    <div class="essence-item">
-                        <h3>Hacia dónde vamos</h3>
-                        <p>En un mundo saturado de automatizaciones despersonalizadas, nuestro objetivo es recuperar el contacto cara a cara, aunque haya una pantalla en el medio. Usamos todas las herramientas que la tecnología nos brinda hoy para <strong>potenciar este vínculo</strong> y optimizar el <strong>crecimiento de marca</strong>.</p>
-                        <p style="margin-top: 10px; font-weight: 600; color: var(--primary-color);">Queremos liderar la vuelta a lo auténtico, donde los resultados económicos son la consecuencia real de haber conectado realmente con las personas.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contacto -->
-    <section class="section" id="contacto">
-        <div class="contact-container">
-            <div class="contact-info">
-                <h2>¿Listo para un nuevo desafío?</h2>
-                <p>Dejanos tus datos y un especialista del laboratorio se pondrá en contacto para analizar tu caso.</p>
-                <div class="floating-icons-container">
-                    <img src="fotociudad.png" alt="Yami Kunze - Pensarte" class="main-photo">
-                    <!-- Íconos Flotantes de Sectores -->
-                    <div class="floating-icon icon-1" title="Angelo Sport">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M6,2 L8,8 L16,8 L18,2 L22,2 L20,22 L4,22 L2,2 L6,2 Z M8,10 L6,20 L18,20 L16,10 L8,10 Z" />
-                        </svg>
-                    </div> <!-- Angelo (Malla Enteriza) -->
-                    <div class="floating-icon icon-2"><i class="fas fa-concierge-bell"></i></div> <!-- Aguas Coloradas -->
-                    <div class="floating-icon icon-3"><i class="fas fa-balance-scale"></i></div> <!-- Glass -->
-                    <div class="floating-icon icon-4"><i class="fas fa-tint"></i></div> <!-- Hidrovent -->
-                    <div class="floating-icon icon-5"><i class="fas fa-glasses"></i></div> <!-- Ilusiones -->
-                    <div class="floating-icon icon-6"><i class="fas fa-plus-square"></i></div> <!-- Integrar -->
-                    <div class="floating-icon icon-7"><i class="fas fa-tools"></i></div> <!-- Mader -->
-                </div>
-                <div style="margin-top: 25px; display: flex; align-items: center; gap: 10px; color: var(--secondary-color); font-weight: 700;">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:hola@pensarte.com.ar" style="color: inherit; text-decoration: none;">hola@pensarte.com.ar</a>
-                </div>
-            </div>
-            <div class="contact-form">
-                <form name="Consulta pensarte" method="POST" netlify>
-                    <input type="hidden" name="form-name" value="Consulta pensarte">
-                    <input type="text" name="nombre" placeholder="Nombre completo" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="tel" name="telefono" placeholder="Teléfono de contacto (ej: +54...)" required>
-                    <input type="text" name="empresa" placeholder="Empresa / Sector" required>
-                    <textarea name="mensaje" placeholder="¿Cuál es tu idea o proyecto?" rows="5" required></textarea>
-                    <button type="submit" class="cta-button" style="border:none;">Enviar Consulta</button>
-                </form>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <footer>
-        <p>&copy; 2026 Pensarte: Laboratorio de Ideas. Todos los derechos reservados.</p>
-        <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.8;">Buenos Aires, Argentina</p>
+        Microsoft Excel Online Viewer • Yami & Mechi Team 2026
     </footer>
 
-    <!-- Botón WhatsApp Flotante -->
-    <a href="https://wa.me/541124509399?text=Hola!%20Vengo%20de%20tu%20web%20y%20me%20gustar%C3%ADa%20hacerte%20una%20consulta.%20Estoy%20interesada%20en%20una%20auditor%C3%ADa%20o%20consultor%C3%ADa.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n." class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Cargamos la base de datos de los calendarios -->
+    <script src="data_calendarios.js"></script>
+    <script>
+        let currentAccount = "Integrar_Cuidados";
+        let currentTab = "feed";
+        let isEditMode = false;
 
-    <!-- Lógica de Auditoría -->
-    <script src="audit.js"></script>
+        // Cargamos los datos desde localStorage si existen; si no, usamos la variable global del archivo JS.
+        let activeData = localStorage.getItem('CALENDARIOS_DATA') ? JSON.parse(localStorage.getItem('CALENDARIOS_DATA')) : CALENDARIOS_DATA;
+
+        function initApp() {
+            renderAccountsMenu();
+            selectAccount(currentAccount);
+        }
+
+        function renderAccountsMenu() {
+            const menu = document.getElementById("accounts-menu");
+            menu.innerHTML = "";
+            
+            Object.keys(activeData).forEach(key => {
+                const acc = activeData[key];
+                const activeClass = key === currentAccount ? "active" : "";
+                const count = acc.publicaciones ? acc.publicaciones.length : 0;
+                
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <button class="account-btn ${activeClass}" onclick="selectAccount('${key}')">
+                        <strong>📊 ${acc.nombre}</strong>
+                        <span class="rubro">${acc.rubro} (${count} filas)</span>
+                    </button>
+                `;
+                menu.appendChild(li);
+            });
+        }
+
+        function selectAccount(key) {
+            currentAccount = key;
+            renderAccountsMenu();
+
+            const acc = activeData[key];
+            const header = document.getElementById("selected-account-header");
+            
+            let objetivosHtml = "";
+            if (acc.objetivos && acc.objetivos.length > 0 && acc.objetivos[0] !== "") {
+                objetivosHtml = `
+                    <div class="objectives-box">
+                        <h4>🎯 Foco Estratégico y Objetivos del Mes</h4>
+                        <ul>
+                            ${acc.objetivos.map(obj => `<li>${obj}</li>`).join("")}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            header.innerHTML = `
+                <h2>Pestaña Activa: ${acc.nombre}</h2>
+                ${objetivosHtml}
+            `;
+
+            renderContent();
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById("tab-feed").classList.toggle("active", tab === "feed");
+            document.getElementById("tab-stories").classList.toggle("active", tab === "stories");
+            renderContent();
+        }
+
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const btnToggle = document.getElementById("btn-toggle-edit");
+            const indicator = document.getElementById("edit-status-indicator");
+            const actionsContainer = document.getElementById("edit-actions-container");
+
+            if (isEditMode) {
+                btnToggle.innerHTML = "👁️ Desactivar Modo Edición";
+                btnToggle.style.backgroundColor = "#e11d48"; // Rojo
+                indicator.innerHTML = "🔴 MODO EDICIÓN ACTIVO • Los cambios son interactivos";
+                indicator.style.color = "#e11d48";
+                actionsContainer.style.display = "flex";
+            } else {
+                btnToggle.innerHTML = "✏️ Activar Modo Edición";
+                btnToggle.style.backgroundColor = "#2563eb"; // Azul
+                indicator.innerHTML = "🟢 Vista de lectura rápida (Mechi)";
+                indicator.style.color = "var(--text-muted)";
+                actionsContainer.style.display = "none";
+            }
+            renderContent();
+        }
+
+        function updateActiveData(tab, idx, field, value) {
+            const acc = activeData[currentAccount];
+            if (tab === 'feed') {
+                acc.publicaciones[idx][field] = value;
+            } else if (tab === 'stories') {
+                acc.historias[idx][field] = value;
+            }
+        }
+
+        function addFeedRow() {
+            const acc = activeData[currentAccount];
+            if (!acc.publicaciones) {
+                acc.publicaciones = [];
+            }
+            
+            acc.publicaciones.push({
+                fechaEntrega: "Vie 05/06",
+                fechaPublicacion: "Lun 08/06",
+                tema: "Nuevo Tema",
+                tipo: "Feed",
+                formato: "Imagen fija",
+                indicacionesDiseno: "Escribir aquí indicaciones para el diseño...",
+                copy: "Escribir aquí el copy...",
+                estado: "🔴 Pendiente"
+            });
+            
+            renderContent();
+            renderAccountsMenu(); // Para actualizar el contador del menú
+            showToast("➕ Se agregó una nueva fila al final del Excel");
+        }
+
+        function deleteFeedRow(idx) {
+            if (confirm("¿Estás seguro de que querés eliminar esta fila del Excel?")) {
+                const acc = activeData[currentAccount];
+                acc.publicaciones.splice(idx, 1);
+                renderContent();
+                renderAccountsMenu();
+                showToast("🗑️ Fila eliminada");
+            }
+        }
+
+        function addStoryRow() {
+            const acc = activeData[currentAccount];
+            if (!acc.historias) {
+                acc.historias = [];
+            }
+            
+            acc.historias.push({
+                semana: "Semana " + (acc.historias.length + 1),
+                tema: "Nueva Historia",
+                visual: "Fondo e indicaciones visuales de la historia...",
+                interaccion: "Ninguna",
+                cta: "Sticker enlace / CTA..."
+            });
+            
+            renderContent();
+            showToast("📸 Se agregó una nueva historia al final");
+        }
+
+        function deleteStoryRow(idx) {
+            if (confirm("¿Estás seguro de que querés eliminar esta historia?")) {
+                const acc = activeData[currentAccount];
+                acc.historias.splice(idx, 1);
+                renderContent();
+                showToast("🗑️ Historia eliminada");
+            }
+        }
+
+        function saveLocalChanges() {
+            localStorage.setItem('CALENDARIOS_DATA', JSON.stringify(activeData));
+            showToast("💾 ¡Cambios guardados en tu navegador!");
+        }
+
+        function resetToOriginal() {
+            if (confirm("⚠️ ¿Estás seguro de que querés borrar todos tus cambios guardados en este navegador y volver al archivo original?")) {
+                localStorage.removeItem('CALENDARIOS_DATA');
+                activeData = JSON.parse(JSON.stringify(CALENDARIOS_DATA));
+                renderAccountsMenu();
+                selectAccount(currentAccount);
+                showToast("🧹 Se restauró el diseño original del archivo.");
+            }
+        }
+
+        function downloadDataJS() {
+            const dataStr = "// BASE DE DATOS CENTRALIZADA DE CALENDARIOS EDITORALES - JUNIO 2026\n// Modificado interactivamente desde el Visor de Excel\n\nconst CALENDARIOS_DATA = " + JSON.stringify(activeData, null, 2) + ";\n";
+            const dataBlob = new Blob([dataStr], { type: 'application/javascript' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'data_calendarios.js';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast("📥 data_calendarios.js descargado. ¡Reemplazalo en GitHub!");
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toast-notification");
+            toast.querySelector("span").innerText = message;
+            toast.style.backgroundColor = isError ? "#b91c1c" : "#107c41";
+            toast.style.display = "flex";
+            setTimeout(() => {
+                toast.style.display = "none";
+            }, 3000);
+        }
+
+        function renderContent() {
+            const acc = activeData[currentAccount];
+            const container = document.getElementById("content-viewer");
+            container.innerHTML = "";
+
+            if (currentTab === "feed") {
+                if (!acc.publicaciones || acc.publicaciones.length === 0) {
+                    if (isEditMode) {
+                        const tableBar = document.createElement("div");
+                        tableBar.className = "excel-table-bar";
+                        tableBar.innerHTML = `
+                            <div class="table-label">Tabla_1</div>
+                            <button class="btn-add-row" onclick="addFeedRow()">➕ Agregar Fila (Feed)</button>
+                        `;
+                        container.appendChild(tableBar);
+                    }
+                    renderEmptyState(container);
+                    return;
+                }
+
+                const tableBar = document.createElement("div");
+                tableBar.className = "excel-table-bar";
+                
+                let btnAgregarHtml = isEditMode ? `<button class="btn-add-row" onclick="addFeedRow()">➕ Agregar Fila (Feed)</button>` : "";
+                
+                tableBar.innerHTML = `
+                    <div class="table-label">Tabla_1</div>
+                    <button class="excel-icon-btn">fx</button>
+                    <button class="excel-icon-btn">Σ AutoSuma</button>
+                    ${btnAgregarHtml}
+                `;
+                container.appendChild(tableBar);
+
+                const wrapper = document.createElement("div");
+                wrapper.className = "excel-table-wrapper";
+
+                let rowsHtml = acc.publicaciones.map((pub, idx) => {
+                    let statusClass = "status-pendiente";
+                    if (pub.estado.includes("Redactando") || pub.estado.includes("Redacción")) statusClass = "status-redaccion";
+                    if (pub.estado.includes("Programado") || pub.estado.includes("Publicado")) statusClass = "status-programado";
+
+                    if (isEditMode) {
+                        return `
+                            <tr>
+                                <td class="col-entrega" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.fechaEntrega}" oninput="updateActiveData('feed', ${idx}, 'fechaEntrega', this.value)">
+                                </td>
+                                <td class="col-publicacion" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.fechaPublicacion}" style="font-weight: 700; color: #107c41;" oninput="updateActiveData('feed', ${idx}, 'fechaPublicacion', this.value)">
+                                </td>
+                                <td class="col-tema" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.tema}" style="font-weight: 600;" oninput="updateActiveData('feed', ${idx}, 'tema', this.value)">
+                                </td>
+                                <td class="col-tipo" style="padding: 6px 4px;">
+                                    <select onchange="updateActiveData('feed', ${idx}, 'tipo', this.value)">
+                                        <option value="Feed" ${pub.tipo === 'Feed' ? 'selected' : ''}>Feed</option>
+                                        <option value="Reel" ${pub.tipo === 'Reel' ? 'selected' : ''}>Reel</option>
+                                        <option value="Historia" ${pub.tipo === 'Historia' ? 'selected' : ''}>Historia</option>
+                                        <option value="Carrusel" ${pub.tipo === 'Carrusel' ? 'selected' : ''}>Carrusel</option>
+                                    </select>
+                                </td>
+                                <td class="col-formato" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.formato}" oninput="updateActiveData('feed', ${idx}, 'formato', this.value)">
+                                </td>
+                                <td class="col-diseno" style="padding: 6px 4px;">
+                                    <textarea oninput="updateActiveData('feed', ${idx}, 'indicacionesDiseno', this.value)">${pub.indicacionesDiseno}</textarea>
+                                </td>
+                                <td class="col-copy" style="padding: 6px 4px;">
+                                    <textarea style="font-size: 11px;" oninput="updateActiveData('feed', ${idx}, 'copy', this.value)">${pub.copy}</textarea>
+                                </td>
+                                <td class="cell-estado" style="padding: 6px 4px; vertical-align: middle;">
+                                    <select style="font-weight: 700;" onchange="updateActiveData('feed', ${idx}, 'estado', this.value); selectAccount(currentAccount);">
+                                        <option value="🔴 Pendiente" ${pub.estado.includes('Pendiente') ? 'selected' : ''}>🔴 Pendiente</option>
+                                        <option value="🟡 Redactando" ${pub.estado.includes('Redactando') || pub.estado.includes('Redacción') ? 'selected' : ''}>🟡 Redactando</option>
+                                        <option value="🟢 Programado" ${pub.estado.includes('Programado') ? 'selected' : ''}>🟢 Programado</option>
+                                        <option value="🔵 Publicado" ${pub.estado.includes('Publicado') ? 'selected' : ''}>🔵 Publicado</option>
+                                    </select>
+                                </td>
+                                <td class="col-delete">
+                                    <button class="btn-delete-row" onclick="deleteFeedRow(${idx})">🗑️</button>
+                                </td>
+                            </tr>
+                        `;
+                    } else {
+                        return `
+                            <tr>
+                                <td class="col-entrega">${pub.fechaEntrega}</td>
+                                <td class="col-publicacion">${pub.fechaPublicacion}</td>
+                                <td class="col-tema">${pub.tema}</td>
+                                <td class="col-tipo">${pub.tipo}</td>
+                                <td class="col-formato">${pub.formato}</td>
+                                <td class="col-diseno">${pub.indicacionesDiseno.replace(/\n/g, '<br>')}</td>
+                                <td class="col-copy">
+                                    <div class="copy-box" id="copytext-${idx}">${pub.copy}</div>
+                                    <button class="btn-copy-excel" onclick="copyToClipboard('${idx}', this)">
+                                        📋 Copiar Copy
+                                    </button>
+                                </td>
+                                <td class="cell-estado">
+                                    <span class="status-pill ${statusClass}">${pub.estado}</span>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                }).join("");
+
+                let deleteHeaderHtml = isEditMode ? `<th class="col-delete"><div class="th-content">Acción</div></th>` : "";
+
+                wrapper.innerHTML = `
+                    <table class="excel-table">
+                        <thead>
+                            <tr>
+                                <th><div class="th-content">fecha de entrega <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Fecha de Publicación <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Tema <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Tipo <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Formato <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Indicaciones para el diseño <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Copy <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Estado <span class="filter-arrow">▼</span></div></th>
+                                ${deleteHeaderHtml}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rowsHtml}
+                        </tbody>
+                    </table>
+                `;
+                container.appendChild(wrapper);
+
+            } else {
+                if (!acc.historias || acc.historias.length === 0) {
+                    if (isEditMode) {
+                        const emptyStoriesBar = document.createElement("div");
+                        emptyStoriesBar.style.padding = "20px";
+                        emptyStoriesBar.style.textAlign = "center";
+                        emptyStoriesBar.innerHTML = `<button class="btn-add-row" style="margin: 0 auto; display: block;" onclick="addStoryRow()">➕ Agregar Nueva Historia</button>`;
+                        container.appendChild(emptyStoriesBar);
+                    }
+                    renderEmptyState(container);
+                    return;
+                }
+
+                if (isEditMode) {
+                    const storiesHeaderBar = document.createElement("div");
+                    storiesHeaderBar.style.padding = "10px 20px 0 20px";
+                    storiesHeaderBar.style.display = "flex";
+                    storiesHeaderBar.style.justifyContent = "flex-end";
+                    storiesHeaderBar.innerHTML = `<button class="btn-add-row" onclick="addStoryRow()">➕ Agregar Historia</button>`;
+                    container.appendChild(storiesHeaderBar);
+                }
+
+                const grid = document.createElement("div");
+                grid.className = "stories-grid";
+
+                acc.historias.forEach((st, idx) => {
+                    const card = document.createElement("div");
+                    card.className = "story-card";
+                    
+                    if (isEditMode) {
+                        card.innerHTML = `
+                            <div class="story-header" style="flex-direction: column; gap: 5px; align-items: stretch;">
+                                <input type="text" class="story-edit-input" style="font-weight: 800; color: #107c41;" value="${st.semana}" placeholder="Semana (ej. Semana 1)" oninput="updateActiveData('stories', ${idx}, 'semana', this.value)">
+                                <input type="text" class="story-edit-input" style="font-weight: 700; background-color: #eaf5ec; color: #107c41;" value="${st.tema}" placeholder="Tema de la historia" oninput="updateActiveData('stories', ${idx}, 'tema', this.value)">
+                            </div>
+                            <div class="story-body" style="gap: 5px;">
+                                <div>
+                                    <strong style="font-size:10.5px;">Visual / Indicación:</strong>
+                                    <textarea class="story-edit-textarea" style="min-height: 60px;" oninput="updateActiveData('stories', ${idx}, 'visual', this.value)">${st.visual}</textarea>
+                                </div>
+                                <div>
+                                    <strong style="font-size:10.5px;">Interacción:</strong>
+                                    <input type="text" class="story-edit-input" value="${st.interaccion}" placeholder="Encuesta, caja de preguntas, etc." oninput="updateActiveData('stories', ${idx}, 'interaccion', this.value)">
+                                </div>
+                                <div>
+                                    <strong style="font-size:10.5px;">CTA / Enlace:</strong>
+                                    <input type="text" class="story-edit-input" value="${st.cta}" placeholder="Texto de link o sticker..." oninput="updateActiveData('stories', ${idx}, 'cta', this.value)">
+                                </div>
+                            </div>
+                            <div class="story-card-delete-bar">
+                                <button class="btn-delete-story" onclick="deleteStoryRow(${idx})">🗑️ Eliminar</button>
+                            </div>
+                        `;
+                    } else {
+                        let ctaHtml = st.cta ? `<div class="story-cta">🎯 CTA: ${st.cta}</div>` : "";
+                        let interaccionHtml = st.interaccion && st.interaccion !== "Ninguna" ? `<div><strong>Interacción:</strong> <span>${st.interaccion}</span></div>` : "";
+
+                        card.innerHTML = `
+                            <div class="story-header">
+                                <span class="story-semana">${st.semana}</span>
+                                <span class="story-tema">${st.tema}</span>
+                            </div>
+                            <div class="story-body">
+                                <div><strong>Visual / Indicación:</strong> <span>${st.visual}</span></div>
+                                ${interaccionHtml}
+                            </div>
+                            ${ctaHtml}
+                        `;
+                    }
+                    grid.appendChild(card);
+                });
+                container.appendChild(grid);
+            }
+        }
+
+        function renderEmptyState(container) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>Planilla de Publicaciones Vacía</h3>
+                    <p>Aún no hemos redactado la grilla de publicaciones para esta pestaña del libro. ¡Habilitá el **Modo Edición** para empezar a crear filas interactivamente o completemos los datos en el chat!</p>
+                    <button onclick="toggleEditMode()">
+                        Activar Modo Edición ✏️
+                    </button>
+                </div>
+            `;
+        }
+
+        function copyToClipboard(id, btn) {
+            const el = document.getElementById(`copytext-${id}`);
+            const text = el.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = "✅ ¡Copiado!";
+                btn.classList.add("copied");
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove("copied");
+                }, 1500);
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        window.onload = initApp;
+    </script>
 </body>
 </html>
