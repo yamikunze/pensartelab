@@ -58,7 +58,7 @@ const CALENDARIOS_DATA = {
         "tipo": "Feed",
         "formato": "Reel",
         "indicacionesDiseno": "Video hogareño premium: Cuidador conversando sonriente con un abuelo mientras acomodan un estante de libros antiguos o leen un diario. Estética acogedora, iluminada.\nTexto en pantalla: 'El lujo de volver a disfrutar el tiempo en familia.'",
-        "copy": "Cuando asumís el rol de cuidador de tu ser querido, a menudo se pierde el rol de hijo, pareja o familiar. ✨\n\nDevolver la tranquilidad a tu hogar es nuestro mayor objetivo. Al delegar la rutina del cuidado y la enfermería en el equipo experto de Integrar Cuidados, recuperás algo invaluable: el tiempo de calidad para compartir conversations, risas y momentos compartidos sin el peso de la exigencia clínica.\n\nUn servicio exclusivo que cuida de ellos, protegiendo también el bienestar emocional de toda la familia.\n\nDescubrí el estándar premium en asistencia domiciliaria.\n\n💬 Contactanos hoy mismo por mensaje directo para coordinar una entrevista de valoración sin cargo.\n\n#BienestarFamiliar #PazMental #CuidadoFamiliar #ServicioPremium #AdultosMayores #CalidadDeVida #IntegrarCuidados",
+        "copy": "Cuando asumís el rol de cuidador de tu ser querido, a menudo se pierde el rol de hijo, pareja o familiar. ✨\n\nDevolver la tranquilidad a tu hogar es nuestro mayor objetivo. Al delegar la rutina del cuidado y la enfermería en el equipo experto de Integrar Cuidados, recuperás algo invaluable: el tiempo de calidad para compartir conversaciones, risas y momentos compartidos sin el peso de la exigencia clínica.\n\nUn servicio exclusivo que cuida de ellos, protegiendo también el bienestar emocional de toda la familia.\n\nDescubrí el estándar premium en asistencia domiciliaria.\n\n💬 Contactanos hoy mismo por mensaje directo para coordinar una entrevista de valoración sin cargo.\n\n#BienestarFamiliar #PazMental #CuidadoFamiliar #ServicioPremium #AdultosMayores #CalidadDeVida #IntegrarCuidados",
         "estado": "🔴 Pendiente"
       }
     ],
@@ -278,9 +278,93 @@ const CALENDARIOS_DATA = {
   "Ilusiones_Optica_Lanus": {
     "nombre": "👓 Ilusiones Óptica Lanús",
     "rubro": "Salud Visual & Moda",
-    "objetivos": ["Planificar en base a la información que definamos juntos."],
-    "publicaciones": [],
-    "historias": []
+    "objetivos": [
+      "Destacar la Cotización por IA: Promover el envío de recetas por WhatsApp mostrando la velocidad y facilidad de lectura automática de cristales y armazones.",
+      "Impulsar Ventas de Temporada: Promocionar los nuevos modelos de armazones de invierno combinados con filtros protectores Blue Light (pantallas).",
+      "Fidelización Local: Reafirmar la confianza en el taller propio de Lanús y el uso de la cobertura de obras sociales."
+    ],
+    "publicaciones": [
+      {
+        "fechaEntrega": "Vie 29/05",
+        "fechaPublicacion": "Lun 01/06",
+        "tema": "Innovación / IA",
+        "tipo": "Feed",
+        "formato": "Carrusel",
+        "indicacionesDiseno": "Slide 1: Placa moderna en tonos celeste neón y azul eléctrico sobre fondo oscuro. Título de impacto: '¿TENÉS UNA RECETA DE ANTEOJOS? 🩺 Sacale una foto y mandanosla por WhatsApp.'\nSlides siguientes: Explicación simple: 1. Nuestra IA lee los valores sola (Eje, Cilindro, etc.), 2. Te cotizamos en tiempo récord, 3. Elegís el armazón desde casa.",
+        "copy": "Se terminaron las esperas innecesarias y el tener que ir hasta la óptica solo para saber cuánto te sale un presupuesto. En Ilusiones Óptica hacemos magia. ✨🔮\n\n¿Fuiste al oftalmólogo y tenés tu receta en mano? ¡Listo!\n📸 Sacale una foto clara con el celular.\n💬 Envianos la foto por WhatsApp.\n\nGracias a nuestro nuevo **Sistema Óptico Inteligente**, nuestra IA lee automáticamente cada valor de tu receta (ojo derecho, ojo izquierdo, cilindros, ejes y adición) y te cotiza el cristal exacto en minutos. Rápido, preciso y sin moverte de casa.\n\nHacerte tus anteojos nuevos nunca fue tan fácil.\n\n🔗 Hacé clic en el enlace de nuestra biografía para ir directo a nuestro WhatsApp y probar la cotización automática hoy mismo.\n\n#OpticaLanus #SistemaInteligente #RecetaOptica #AnteojosNuevos #SaludVisual #Lanus #CotizacionOnline #OpticaFamiliar",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Lun 08/06",
+        "fechaPublicacion": "Mié 10/06",
+        "tema": "Salud / Pantallas",
+        "tipo": "Feed",
+        "formato": "Reel",
+        "indicacionesDiseno": "Visual: Transición dinámica de una persona trabajando frente a la computadora con luz azul reflejada en sus cristales, y luego mostrando los anteojos con filtro Blue Light cortando el reflejo.\nTexto en pantalla: '¿Trabajás con pantallas? Evitá la fatiga visual.'",
+        "copy": "¿Sentís los ojos secos, cansados o tenés dolores de cabeza al final del día? 💻👀\n\nPasar más de 4 horas diaria frente al celular, la tablet o la computadora expone a tus ojos a la luz azul nociva de las pantallas. Esto provoca fatiga visual, irritación y puede alterar tu ciclo de sueño.\n\nLa solución existe y es súper simple: **Filtro Blue Light** (antirreflejo azul). Nuestros cristales inteligentes filtran el espectro dañino de la luz azul, reduciendo el esfuerzo visual y protegiendo tu salud ocular.\n\nCuidá tu vista sin perder el estilo. Podés ponerle este filtro a tus anteojos recetados o pedir armazones neutros si no tenés graduación pero trabajás en oficina.\n\n💬 Dejanos un comentario con la palabra 'PANTALLA' y te pasamos info sobre los tratamientos disponibles.\n\n#LuzAzul #FiltroBlueLight #SaludOcular #FatigaVisual #TrabajoEnOficina #LentesDePantalla #IlusionesOptica #Lanus",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Vie 12/06",
+        "fechaPublicacion": "Lun 15/06",
+        "tema": "Moda y Tendencias",
+        "tipo": "Feed",
+        "formato": "Imagen fija",
+        "indicacionesDiseno": "Visual: Fotografía premium de un armazón de acetato de alta calidad en tonos carey o ámbar cálido sobre un fondo minimalista. Título estético: 'Tus anteojos son tu firma personal.'",
+        "copy": "Los anteojos dejaron de ser una necesidad para convertirse en una parte fundamental de tu identidad. 👓✨\n\nEn Ilusiones Óptica creemos que el armazón perfecto es aquel que resalta tu rostro, acompaña tu estilo y te da comodidad absoluta durante todo el día.\n\nAcaba de ingresar nuestra **colección de invierno**: armazones de acetato reforzado con bisagras premium en tonos ámbar, carey, transparencias modernas y negros clásicos que nunca fallan.\n\nVení a probarte las nuevas tendencias a nuestro local de Lanús. Te ayudamos a elegir el modelo ideal según la forma de tu rostro y tu graduación.\n\n📍 Te esperamos en [Insertar Dirección de la Óptica] con el café listo para asesorarte.\n\n#ArmazonesModernos #ModaOptica #TendenciasInvierno #LentesDeModa #EstiloPersonal #AnteojosDeSol #LanusEste #OpticaDeBarrio",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Lun 15/06",
+        "fechaPublicacion": "Mié 17/06",
+        "tema": "Confianza / Taller",
+        "tipo": "Feed",
+        "formato": "Reel",
+        "indicacionesDiseno": "Visual: Video estilo 'Detrás de escena' corto y muy visual mostrando el taller propio de la óptica: el técnico óptico calibrando un cristal orgánico con la máquina pulidora y encajándolo a la perfección.\nTexto en pantalla: 'Taller propio en Lanús: Precisión en cada milímetro.'",
+        "copy": "¿Te preguntaste alguna vez quién y cómo se arman tus anteojos? 🛠️👓\n\nA diferencia de otros lugares que mandan a fabricar sus anteojos afuera, en Ilusiones Óptica contamos con **taller propio en nuestro local de Lanús**. ¿Qué significa esto para vos?\n\n🥇 **Máxima precisión:** Calibramos y pulimos tus cristales bajo estrictos controles de calidad directos.\n⏱️ **Tiempos récord:** Tus anteojos listos mucho más rápido, sin esperas de envíos ni intermediarios.\n🛠️ **Garantía directa:** Si necesitás un ajuste, plaquetas nuevas o mantenimiento, venís y te lo resolvemos en el momento.\n\nLa salud de tus ojos merece el respaldo de profesionales de verdad.\n\n❤️ Gracias por confiar en el comercio y los profesionales de tu barrio.\n\n#TallerOptico #CristalesRecetados #Optometria #PrecisiónClínica #ComercioLocal #LanusAbierto #GlasYAsociados",
+        "estado": "🔴 Pendiente"
+      },
+      {
+        "fechaEntrega": "Vie 19/06",
+        "fechaPublicacion": "Mié 24/06",
+        "tema": "Obras Sociales / SAC",
+        "tipo": "Feed",
+        "formato": "Carrusel",
+        "indicacionesDiseno": "Slide 1: Placa limpia en tonos celestes y blanco. Título destacado: 'HACÉ VALER TU OBRA SOCIAL ANTES DE FIN DE MES.'\nSlides siguientes: Listado de coberturas o beneficios anuales en cristales y armazones.",
+        "copy": "¿Sabías que la mayoría de las obras sociales y prepagas te cubren anteojos recetados una vez al año? 🩺💳\n\nMuchos vecinos pierden este beneficio anual por olvido o falta de información. En Ilusiones Óptica trabajamos con una amplia cobertura de obras sociales y prepagas para facilitarte el acceso a tu salud visual.\n\nAprovechá este mes para:\n👉 Utilizar la cobertura de tu receta anual.\n👉 Acceder a descuentos especiales en cristales multifocales y monofocales.\n👉 Consultar por presupuestos de reintegro oficiales.\n\nNo dejes pasar tu salud visual para después.\n\n📩 Escribinos por mensaje privado con el nombre de tu obra social o prepaga y te decimos en el acto qué cobertura y beneficios tenés disponibles.\n\n#ObrasSociales #Prepagas #SaludVisualGratuita #DesconentosOptica #AhorroFamiliar #AnteojosRecetados #LanusEste",
+        "estado": "🔴 Pendiente"
+      }
+    ],
+    "historias": [
+      {
+        "semana": "Semana 1",
+        "tema": "Interactiva",
+        "visual": "Placa celeste neón: '¿Sentís los ojos secos o dolores de cabeza frente a la pantalla?'",
+        "interaccion": "Encuesta: 'Sí, todo el día' / 'No, por ahora bien'.",
+        "cta": "Sticker enlace a WhatsApp para cotizar por IA."
+      },
+      {
+        "semana": "Semana 2",
+        "tema": "Novedad",
+        "visual": "Video corto de armazones de acetato nuevos en tonos ámbar y gris cristal en mesa iluminada.",
+        "interaccion": "Ninguna.",
+        "cta": "Sticker enlace a ubicación del local."
+      },
+      {
+        "semana": "Semana 3",
+        "tema": "Especial Día del Padre (21/06)",
+        "visual": "Foto premium de abuelo o padre leyendo un libro con su hijo usando sus anteojos Ilusiones.",
+        "interaccion": "Ninguna.",
+        "cta": "¡Feliz Día del Padre! ❤️ En especial a los papás de Lanús."
+      },
+      {
+        "semana": "Semana 4",
+        "tema": "Tips de Cuidado",
+        "visual": "Placa con tips rápidos de lavado con jabón neutro y secado con paño microfibra de Ilusiones.",
+        "interaccion": "Ninguna.",
+        "cta": "Sticker enlace: 'Consultar paños y sprays'."
+      }
+    ]
   },
   "Hosteria_Aguas_Coloradas": {
     "nombre": "🏨 Hostería Aguas Coloradas",

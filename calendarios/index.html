@@ -509,6 +509,120 @@
             color: var(--text-muted);
             font-weight: 600;
         }
+
+        /* ESTILOS DE EDICIÓN - EXCEL INTERACTIVO */
+        .excel-table input[type="text"], 
+        .excel-table select, 
+        .excel-table textarea {
+            width: 100%;
+            border: 1px solid transparent;
+            background: transparent;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            padding: 6px;
+            border-radius: 4px;
+            outline: none;
+            transition: all 0.1s;
+        }
+
+        .excel-table input[type="text"]:focus, 
+        .excel-table select:focus, 
+        .excel-table textarea:focus {
+            background-color: #ffffff;
+            border: 1px solid #107c41; /* Borde verde Excel al enfocar */
+            box-shadow: 0 0 0 2px rgba(16, 124, 65, 0.15);
+        }
+
+        .excel-table textarea {
+            resize: vertical;
+            min-height: 80px;
+            line-height: 1.4;
+        }
+
+        .col-delete {
+            width: 50px;
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        .btn-delete-row {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+
+        .btn-delete-row:hover {
+            background-color: #fee2e2;
+        }
+
+        .btn-add-row {
+            background-color: #107c41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-left: auto;
+            transition: background 0.15s;
+        }
+
+        .btn-add-row:hover {
+            background-color: #0b592e;
+        }
+
+        /* Edición de Historias */
+        .story-edit-input, .story-edit-textarea {
+            width: 100%;
+            border: 1px solid #e4e4e7;
+            background-color: white;
+            border-radius: 4px;
+            padding: 6px;
+            font-family: inherit;
+            font-size: 12px;
+            outline: none;
+            margin-top: 2px;
+        }
+
+        .story-edit-input:focus, .story-edit-textarea:focus {
+            border-color: #107c41;
+            box-shadow: 0 0 0 2px rgba(16, 124, 65, 0.15);
+        }
+
+        .story-card-delete-bar {
+            border-top: 1px solid #e4e4e7;
+            padding-top: 8px;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 5px;
+        }
+
+        .btn-delete-story {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .btn-delete-story:hover {
+            background-color: #fca5a5;
+            color: #7f1d1d;
+        }
     </style>
 </head>
 <body>
@@ -535,6 +649,34 @@
 
         <!-- PANEL DE EXCEL -->
         <div class="main-panel">
+            
+            <!-- BARRA DE EDICIÓN COLABORATIVA -->
+            <div class="toolbar-edicion" style="background: white; border: 1px solid #e4e4e7; border-radius: 8px; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); gap: 15px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <button id="btn-toggle-edit" style="background-color: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="toggleEditMode()">
+                        ✏️ Activar Modo Edición
+                    </button>
+                    <span id="edit-status-indicator" style="font-size: 12px; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 5px;">
+                        🟢 Vista de lectura rápida (Mechi)
+                    </span>
+                </div>
+                <div id="edit-actions-container" style="display: none; gap: 8px; flex-wrap: wrap;">
+                    <button style="background-color: #107c41; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="saveLocalChanges()">
+                        💾 Guardar Local
+                    </button>
+                    <button style="background-color: #b91c1c; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="resetToOriginal()">
+                        🧹 Restaurar Original
+                    </button>
+                    <button style="background-color: #0d9488; color: white; border: none; padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.15s;" onclick="downloadDataJS()">
+                        📥 Descargar data_calendarios.js
+                    </button>
+                </div>
+            </div>
+
+            <!-- Toast de Notificación -->
+            <div id="toast-notification" style="position: fixed; bottom: 25px; right: 25px; background-color: #107c41; color: white; padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 13px; display: none; z-index: 9999; box-shadow: 0 4px 15px rgba(0,0,0,0.2); align-items: center; gap: 8px; transition: all 0.2s;">
+                <span>💾 ¡Cambios guardados localmente!</span>
+            </div>
             
             <!-- Info Cabecera -->
             <div class="account-header" id="selected-account-header">
@@ -565,6 +707,10 @@
     <script>
         let currentAccount = "Integrar_Cuidados";
         let currentTab = "feed";
+        let isEditMode = false;
+
+        // Cargamos los datos desde localStorage si existen; si no, usamos la variable global del archivo JS.
+        let activeData = localStorage.getItem('CALENDARIOS_DATA') ? JSON.parse(localStorage.getItem('CALENDARIOS_DATA')) : CALENDARIOS_DATA;
 
         function initApp() {
             renderAccountsMenu();
@@ -575,8 +721,8 @@
             const menu = document.getElementById("accounts-menu");
             menu.innerHTML = "";
             
-            Object.keys(CALENDARIOS_DATA).forEach(key => {
-                const acc = CALENDARIOS_DATA[key];
+            Object.keys(activeData).forEach(key => {
+                const acc = activeData[key];
                 const activeClass = key === currentAccount ? "active" : "";
                 const count = acc.publicaciones ? acc.publicaciones.length : 0;
                 
@@ -595,7 +741,7 @@
             currentAccount = key;
             renderAccountsMenu();
 
-            const acc = CALENDARIOS_DATA[key];
+            const acc = activeData[key];
             const header = document.getElementById("selected-account-header");
             
             let objetivosHtml = "";
@@ -625,24 +771,167 @@
             renderContent();
         }
 
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const btnToggle = document.getElementById("btn-toggle-edit");
+            const indicator = document.getElementById("edit-status-indicator");
+            const actionsContainer = document.getElementById("edit-actions-container");
+
+            if (isEditMode) {
+                btnToggle.innerHTML = "👁️ Desactivar Modo Edición";
+                btnToggle.style.backgroundColor = "#e11d48"; // Rojo
+                indicator.innerHTML = "🔴 MODO EDICIÓN ACTIVO • Los cambios son interactivos";
+                indicator.style.color = "#e11d48";
+                actionsContainer.style.display = "flex";
+            } else {
+                btnToggle.innerHTML = "✏️ Activar Modo Edición";
+                btnToggle.style.backgroundColor = "#2563eb"; // Azul
+                indicator.innerHTML = "🟢 Vista de lectura rápida (Mechi)";
+                indicator.style.color = "var(--text-muted)";
+                actionsContainer.style.display = "none";
+            }
+            renderContent();
+        }
+
+        function updateActiveData(tab, idx, field, value) {
+            const acc = activeData[currentAccount];
+            if (tab === 'feed') {
+                acc.publicaciones[idx][field] = value;
+            } else if (tab === 'stories') {
+                acc.historias[idx][field] = value;
+            }
+        }
+
+        function addFeedRow() {
+            const acc = activeData[currentAccount];
+            if (!acc.publicaciones) {
+                acc.publicaciones = [];
+            }
+            
+            acc.publicaciones.push({
+                fechaEntrega: "Vie 05/06",
+                fechaPublicacion: "Lun 08/06",
+                tema: "Nuevo Tema",
+                tipo: "Feed",
+                formato: "Imagen fija",
+                indicacionesDiseno: "Escribir aquí indicaciones para el diseño...",
+                copy: "Escribir aquí el copy...",
+                estado: "🔴 Pendiente"
+            });
+            
+            renderContent();
+            renderAccountsMenu(); // Para actualizar el contador del menú
+            showToast("➕ Se agregó una nueva fila al final del Excel");
+        }
+
+        function deleteFeedRow(idx) {
+            if (confirm("¿Estás seguro de que querés eliminar esta fila del Excel?")) {
+                const acc = activeData[currentAccount];
+                acc.publicaciones.splice(idx, 1);
+                renderContent();
+                renderAccountsMenu();
+                showToast("🗑️ Fila eliminada");
+            }
+        }
+
+        function addStoryRow() {
+            const acc = activeData[currentAccount];
+            if (!acc.historias) {
+                acc.historias = [];
+            }
+            
+            acc.historias.push({
+                semana: "Semana " + (acc.historias.length + 1),
+                tema: "Nueva Historia",
+                visual: "Fondo e indicaciones visuales de la historia...",
+                interaccion: "Ninguna",
+                cta: "Sticker enlace / CTA..."
+            });
+            
+            renderContent();
+            showToast("📸 Se agregó una nueva historia al final");
+        }
+
+        function deleteStoryRow(idx) {
+            if (confirm("¿Estás seguro de que querés eliminar esta historia?")) {
+                const acc = activeData[currentAccount];
+                acc.historias.splice(idx, 1);
+                renderContent();
+                showToast("🗑️ Historia eliminada");
+            }
+        }
+
+        function saveLocalChanges() {
+            localStorage.setItem('CALENDARIOS_DATA', JSON.stringify(activeData));
+            showToast("💾 ¡Cambios guardados en tu navegador!");
+        }
+
+        function resetToOriginal() {
+            if (confirm("⚠️ ¿Estás seguro de que querés borrar todos tus cambios guardados en este navegador y volver al archivo original?")) {
+                localStorage.removeItem('CALENDARIOS_DATA');
+                activeData = JSON.parse(JSON.stringify(CALENDARIOS_DATA));
+                renderAccountsMenu();
+                selectAccount(currentAccount);
+                showToast("🧹 Se restauró el diseño original del archivo.");
+            }
+        }
+
+        function downloadDataJS() {
+            const dataStr = "// BASE DE DATOS CENTRALIZADA DE CALENDARIOS EDITORALES - JUNIO 2026\n// Modificado interactivamente desde el Visor de Excel\n\nconst CALENDARIOS_DATA = " + JSON.stringify(activeData, null, 2) + ";\n";
+            const dataBlob = new Blob([dataStr], { type: 'application/javascript' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'data_calendarios.js';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            showToast("📥 data_calendarios.js descargado. ¡Reemplazalo en GitHub!");
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toast-notification");
+            toast.querySelector("span").innerText = message;
+            toast.style.backgroundColor = isError ? "#b91c1c" : "#107c41";
+            toast.style.display = "flex";
+            setTimeout(() => {
+                toast.style.display = "none";
+            }, 3000);
+        }
+
         function renderContent() {
-            const acc = CALENDARIOS_DATA[currentAccount];
+            const acc = activeData[currentAccount];
             const container = document.getElementById("content-viewer");
             container.innerHTML = "";
 
             if (currentTab === "feed") {
                 if (!acc.publicaciones || acc.publicaciones.length === 0) {
+                    if (isEditMode) {
+                        const tableBar = document.createElement("div");
+                        tableBar.className = "excel-table-bar";
+                        tableBar.innerHTML = `
+                            <div class="table-label">Tabla_1</div>
+                            <button class="btn-add-row" onclick="addFeedRow()">➕ Agregar Fila (Feed)</button>
+                        `;
+                        container.appendChild(tableBar);
+                    }
                     renderEmptyState(container);
                     return;
                 }
 
-                // Renderizamos la barra de herramientas de la tabla de Excel (Tabla_1)
                 const tableBar = document.createElement("div");
                 tableBar.className = "excel-table-bar";
+                
+                let btnAgregarHtml = isEditMode ? `<button class="btn-add-row" onclick="addFeedRow()">➕ Agregar Fila (Feed)</button>` : "";
+                
                 tableBar.innerHTML = `
                     <div class="table-label">Tabla_1</div>
                     <button class="excel-icon-btn">fx</button>
                     <button class="excel-icon-btn">Σ AutoSuma</button>
+                    ${btnAgregarHtml}
                 `;
                 container.appendChild(tableBar);
 
@@ -651,29 +940,75 @@
 
                 let rowsHtml = acc.publicaciones.map((pub, idx) => {
                     let statusClass = "status-pendiente";
-                    if (pub.estado.includes("Redactando")) statusClass = "status-redaccion";
+                    if (pub.estado.includes("Redactando") || pub.estado.includes("Redacción")) statusClass = "status-redaccion";
                     if (pub.estado.includes("Programado") || pub.estado.includes("Publicado")) statusClass = "status-programado";
 
-                    return `
-                        <tr>
-                            <td class="col-entrega">${pub.fechaEntrega}</td>
-                            <td class="col-publicacion">${pub.fechaPublicacion}</td>
-                            <td class="col-tema">${pub.tema}</td>
-                            <td class="col-tipo">${pub.tipo}</td>
-                            <td class="col-formato">${pub.formato}</td>
-                            <td class="col-diseno">${pub.indicacionesDiseno.replace(/\n/g, '<br>')}</td>
-                            <td class="col-copy">
-                                <div class="copy-box" id="copytext-${idx}">${pub.copy}</div>
-                                <button class="btn-copy-excel" onclick="copyToClipboard('${idx}', this)">
-                                    📋 Copiar Copy
-                                </button>
-                            </td>
-                            <td class="cell-estado">
-                                <span class="status-pill ${statusClass}">${pub.estado}</span>
-                            </td>
-                        </tr>
-                    `;
+                    if (isEditMode) {
+                        return `
+                            <tr>
+                                <td class="col-entrega" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.fechaEntrega}" oninput="updateActiveData('feed', ${idx}, 'fechaEntrega', this.value)">
+                                </td>
+                                <td class="col-publicacion" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.fechaPublicacion}" style="font-weight: 700; color: #107c41;" oninput="updateActiveData('feed', ${idx}, 'fechaPublicacion', this.value)">
+                                </td>
+                                <td class="col-tema" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.tema}" style="font-weight: 600;" oninput="updateActiveData('feed', ${idx}, 'tema', this.value)">
+                                </td>
+                                <td class="col-tipo" style="padding: 6px 4px;">
+                                    <select onchange="updateActiveData('feed', ${idx}, 'tipo', this.value)">
+                                        <option value="Feed" ${pub.tipo === 'Feed' ? 'selected' : ''}>Feed</option>
+                                        <option value="Reel" ${pub.tipo === 'Reel' ? 'selected' : ''}>Reel</option>
+                                        <option value="Historia" ${pub.tipo === 'Historia' ? 'selected' : ''}>Historia</option>
+                                        <option value="Carrusel" ${pub.tipo === 'Carrusel' ? 'selected' : ''}>Carrusel</option>
+                                    </select>
+                                </td>
+                                <td class="col-formato" style="padding: 6px 4px;">
+                                    <input type="text" value="${pub.formato}" oninput="updateActiveData('feed', ${idx}, 'formato', this.value)">
+                                </td>
+                                <td class="col-diseno" style="padding: 6px 4px;">
+                                    <textarea oninput="updateActiveData('feed', ${idx}, 'indicacionesDiseno', this.value)">${pub.indicacionesDiseno}</textarea>
+                                </td>
+                                <td class="col-copy" style="padding: 6px 4px;">
+                                    <textarea style="font-size: 11px;" oninput="updateActiveData('feed', ${idx}, 'copy', this.value)">${pub.copy}</textarea>
+                                </td>
+                                <td class="cell-estado" style="padding: 6px 4px; vertical-align: middle;">
+                                    <select style="font-weight: 700;" onchange="updateActiveData('feed', ${idx}, 'estado', this.value); selectAccount(currentAccount);">
+                                        <option value="🔴 Pendiente" ${pub.estado.includes('Pendiente') ? 'selected' : ''}>🔴 Pendiente</option>
+                                        <option value="🟡 Redactando" ${pub.estado.includes('Redactando') || pub.estado.includes('Redacción') ? 'selected' : ''}>🟡 Redactando</option>
+                                        <option value="🟢 Programado" ${pub.estado.includes('Programado') ? 'selected' : ''}>🟢 Programado</option>
+                                        <option value="🔵 Publicado" ${pub.estado.includes('Publicado') ? 'selected' : ''}>🔵 Publicado</option>
+                                    </select>
+                                </td>
+                                <td class="col-delete">
+                                    <button class="btn-delete-row" onclick="deleteFeedRow(${idx})">🗑️</button>
+                                </td>
+                            </tr>
+                        `;
+                    } else {
+                        return `
+                            <tr>
+                                <td class="col-entrega">${pub.fechaEntrega}</td>
+                                <td class="col-publicacion">${pub.fechaPublicacion}</td>
+                                <td class="col-tema">${pub.tema}</td>
+                                <td class="col-tipo">${pub.tipo}</td>
+                                <td class="col-formato">${pub.formato}</td>
+                                <td class="col-diseno">${pub.indicacionesDiseno.replace(/\n/g, '<br>')}</td>
+                                <td class="col-copy">
+                                    <div class="copy-box" id="copytext-${idx}">${pub.copy}</div>
+                                    <button class="btn-copy-excel" onclick="copyToClipboard('${idx}', this)">
+                                        📋 Copiar Copy
+                                    </button>
+                                </td>
+                                <td class="cell-estado">
+                                    <span class="status-pill ${statusClass}">${pub.estado}</span>
+                                </td>
+                            </tr>
+                        `;
+                    }
                 }).join("");
+
+                let deleteHeaderHtml = isEditMode ? `<th class="col-delete"><div class="th-content">Acción</div></th>` : "";
 
                 wrapper.innerHTML = `
                     <table class="excel-table">
@@ -687,6 +1022,7 @@
                                 <th><div class="th-content">Indicaciones para el diseño <span class="filter-arrow">▼</span></div></th>
                                 <th><div class="th-content">Copy <span class="filter-arrow">▼</span></div></th>
                                 <th><div class="th-content">Estado <span class="filter-arrow">▼</span></div></th>
+                                ${deleteHeaderHtml}
                             </tr>
                         </thead>
                         <tbody>
@@ -698,31 +1034,73 @@
 
             } else {
                 if (!acc.historias || acc.historias.length === 0) {
+                    if (isEditMode) {
+                        const emptyStoriesBar = document.createElement("div");
+                        emptyStoriesBar.style.padding = "20px";
+                        emptyStoriesBar.style.textAlign = "center";
+                        emptyStoriesBar.innerHTML = `<button class="btn-add-row" style="margin: 0 auto; display: block;" onclick="addStoryRow()">➕ Agregar Nueva Historia</button>`;
+                        container.appendChild(emptyStoriesBar);
+                    }
                     renderEmptyState(container);
                     return;
+                }
+
+                if (isEditMode) {
+                    const storiesHeaderBar = document.createElement("div");
+                    storiesHeaderBar.style.padding = "10px 20px 0 20px";
+                    storiesHeaderBar.style.display = "flex";
+                    storiesHeaderBar.style.justifyContent = "flex-end";
+                    storiesHeaderBar.innerHTML = `<button class="btn-add-row" onclick="addStoryRow()">➕ Agregar Historia</button>`;
+                    container.appendChild(storiesHeaderBar);
                 }
 
                 const grid = document.createElement("div");
                 grid.className = "stories-grid";
 
-                acc.historias.forEach(st => {
+                acc.historias.forEach((st, idx) => {
                     const card = document.createElement("div");
                     card.className = "story-card";
                     
-                    let ctaHtml = st.cta ? `<div class="story-cta">🎯 CTA: ${st.cta}</div>` : "";
-                    let interaccionHtml = st.interaccion && st.interaccion !== "Ninguna" ? `<div><strong>Interacción:</strong> <span>${st.interaccion}</span></div>` : "";
+                    if (isEditMode) {
+                        card.innerHTML = `
+                            <div class="story-header" style="flex-direction: column; gap: 5px; align-items: stretch;">
+                                <input type="text" class="story-edit-input" style="font-weight: 800; color: #107c41;" value="${st.semana}" placeholder="Semana (ej. Semana 1)" oninput="updateActiveData('stories', ${idx}, 'semana', this.value)">
+                                <input type="text" class="story-edit-input" style="font-weight: 700; background-color: #eaf5ec; color: #107c41;" value="${st.tema}" placeholder="Tema de la historia" oninput="updateActiveData('stories', ${idx}, 'tema', this.value)">
+                            </div>
+                            <div class="story-body" style="gap: 5px;">
+                                <div>
+                                    <strong style="font-size:10.5px;">Visual / Indicación:</strong>
+                                    <textarea class="story-edit-textarea" style="min-height: 60px;" oninput="updateActiveData('stories', ${idx}, 'visual', this.value)">${st.visual}</textarea>
+                                </div>
+                                <div>
+                                    <strong style="font-size:10.5px;">Interacción:</strong>
+                                    <input type="text" class="story-edit-input" value="${st.interaccion}" placeholder="Encuesta, caja de preguntas, etc." oninput="updateActiveData('stories', ${idx}, 'interaccion', this.value)">
+                                </div>
+                                <div>
+                                    <strong style="font-size:10.5px;">CTA / Enlace:</strong>
+                                    <input type="text" class="story-edit-input" value="${st.cta}" placeholder="Texto de link o sticker..." oninput="updateActiveData('stories', ${idx}, 'cta', this.value)">
+                                </div>
+                            </div>
+                            <div class="story-card-delete-bar">
+                                <button class="btn-delete-story" onclick="deleteStoryRow(${idx})">🗑️ Eliminar</button>
+                            </div>
+                        `;
+                    } else {
+                        let ctaHtml = st.cta ? `<div class="story-cta">🎯 CTA: ${st.cta}</div>` : "";
+                        let interaccionHtml = st.interaccion && st.interaccion !== "Ninguna" ? `<div><strong>Interacción:</strong> <span>${st.interaccion}</span></div>` : "";
 
-                    card.innerHTML = `
-                        <div class="story-header">
-                            <span class="story-semana">${st.semana}</span>
-                            <span class="story-tema">${st.tema}</span>
-                        </div>
-                        <div class="story-body">
-                            <div><strong>Visual / Indicación:</strong> <span>${st.visual}</span></div>
-                            ${interaccionHtml}
-                        </div>
-                        ${ctaHtml}
-                    `;
+                        card.innerHTML = `
+                            <div class="story-header">
+                                <span class="story-semana">${st.semana}</span>
+                                <span class="story-tema">${st.tema}</span>
+                            </div>
+                            <div class="story-body">
+                                <div><strong>Visual / Indicación:</strong> <span>${st.visual}</span></div>
+                                ${interaccionHtml}
+                            </div>
+                            ${ctaHtml}
+                        `;
+                    }
                     grid.appendChild(card);
                 });
                 container.appendChild(grid);
@@ -733,9 +1111,9 @@
             container.innerHTML = `
                 <div class="empty-state">
                     <h3>Planilla de Publicaciones Vacía</h3>
-                    <p>Aún no hemos redactado la grilla de publicaciones para esta pestaña del libro. ¡Completemos los datos en el chat para escribir las filas de esta cuenta!</p>
-                    <button onclick="alert('Respondé la pregunta de la IA en el chat para habilitar esta cuenta.')">
-                        Cargar Datos en el Chat 💬
+                    <p>Aún no hemos redactado la grilla de publicaciones para esta pestaña del libro. ¡Habilitá el **Modo Edición** para empezar a crear filas interactivamente o completemos los datos en el chat!</p>
+                    <button onclick="toggleEditMode()">
+                        Activar Modo Edición ✏️
                     </button>
                 </div>
             `;
