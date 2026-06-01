@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel de Calendarios Editoriales - Yami & Mechi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --excel-green-dark: #1b4d3e;   /* El verde oscuro exacto del cabezal de Excel en la imagen */
+            --excel-green-light: #2c7a5f;  /* Acentos de botones verde */
+            --excel-grid-line: #d4d4d8;    /* Las líneas grises del Excel */
+            --bg-main: #f4f4f5;
+            --bg-card: #ffffff;
+            --text-main: #18181b;
+            --text-muted: #71717a;
+            
+            /* Colores de Estado */
+            --pendiente-bg: #fee2e2;
+            --pendiente-txt: #991b1b;
+            --redaccion-bg: #fef3c7;
+            --redaccion-txt: #92400e;
+            --programado-bg: #dcfce7;
+            --programado-txt: #166534;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Cabezal tipo Excel/Microsoft 365 */
+        header {
+            background-color: #107c41; /* Verde característico de Microsoft Excel */
+            color: white;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-title h1 {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-title p {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-top: 1px;
+        }
+
+        .share-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Contenedor General */
+        .app-container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 20px;
+            max-width: 1800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Selector de Cuentas (Sidebar izquierdo simulando las Hojas del Libro) */
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-card {
+            background-color: var(--bg-card);
+            border: 1px solid #e4e4e7;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-card h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .account-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .account-btn {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .account-btn:hover {
+            background-color: #f4f4f5;
+        }
+
+        .account-btn.active {
+            background-color: #eaf5ec;
+            border-left: 4px solid #107c41;
+            color: #107c41;
+        }
+
+        .account-btn span.rubro {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .account-btn.active span.rubro {
+            color: #107c41;
+            opacity: 0.8;
+        }
+
+        /* Panel de Contenido */
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-width: 0;
+        }
+
+        /* Encabezado e Info de la Cuenta */
+        .account-header {
+            background-color: var(--bg-card);
+            border: 1px solid #e4e4e7;
+            border-radius: 8px;
+            padding: 18px 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .account-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .objectives-box {
+            background-color: #fafafa;
+            border-left: 3px solid #107c41;
+            padding: 10px 15px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 5px;
+        }
+
+        .objectives-box h4 {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #107c41;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .objectives-box ul {
+            list-style-type: none;
+            font-size: 12.5px;
+            color: #4b5563;
+            line-height: 1.4;
+        }
+
+        .objectives-box ul li::before {
+            content: "• ";
+            color: #107c41;
+            font-weight: bold;
+        }
+
+        /* Selector de Tipo de Vista (Simulando Pestañas de Excel abajo/arriba de tabla) */
+        .excel-sheet-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: -1px;
+            z-index: 2;
+        }
+
+        .sheet-tab-btn {
+            background-color: #e4e4e7;
+            border: 1px solid #d4d4d8;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .sheet-tab-btn.active {
+            background-color: var(--bg-card);
+            color: #107c41;
+            border-top: 3px solid #107c41;
+            font-weight: 700;
+            padding-top: 6px;
+        }
+
+        /* PLANILLA EXCEL (Diseño igual a la captura de pantalla) */
+        .excel-container {
+            background-color: var(--bg-card);
+            border: 1px solid #d4d4d8;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Indicador de Tabla (Tabla_1) */
+        .excel-table-bar {
+            background-color: #f4f4f5;
+            border-bottom: 1px solid #d4d4d8;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .table-label {
+            background-color: var(--excel-green-dark);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: -9px;
+            z-index: 10;
+        }
+
+        .table-label::after {
+            content: '∨';
+            font-size: 8px;
+        }
+
+        .excel-icon-btn {
+            background-color: #fafafa;
+            border: 1px solid #d4d4d8;
+            border-radius: 3px;
+            padding: 2px 6px;
+            font-size: 10px;
+            color: #4b5563;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Tabla de Excel con Estilo de Cabecera Verde e Indicadores de Filtro */
+        .excel-table-wrapper {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+            text-align: left;
+            min-width: 1200px;
+        }
+
+        /* ESTILO DEL HEADER IGUAL A LA CAPTURA */
+        .excel-table th {
+            background-color: var(--excel-green-dark);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 10px 15px;
+            border-right: 1px solid rgba(255,255,255,0.15);
+            border-bottom: 1px solid var(--excel-grid-line);
+            font-size: 12px;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .excel-table th .th-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        /* El icono del filtro exacto del Excel */
+        .excel-table th .filter-arrow {
+            font-size: 8px;
+            opacity: 0.8;
+            font-weight: bold;
+        }
+
+        /* Celdas comunes con bordes de grilla Excel */
+        .excel-table td {
+            padding: 12px 15px;
+            border-right: 1px solid var(--excel-grid-line);
+            border-bottom: 1px solid var(--excel-grid-line);
+            vertical-align: top;
+            line-height: 1.45;
+            color: #27272a;
+        }
+
+        .excel-table tr:hover td {
+            background-color: #f1f5f9;
+        }
+
+        /* Columnas con anchos proporcionales */
+        .col-entrega { width: 110px; font-weight: 600; text-align: center; }
+        .col-publicacion { width: 110px; font-weight: 700; text-align: center; color: #107c41; }
+        .col-tema { width: 150px; font-weight: 600; }
+        .col-tipo { width: 90px; text-align: center; }
+        .col-formato { width: 120px; font-weight: 500; }
+        .col-diseno { width: 320px; color: #3f3f46; font-size: 12px; }
+        .col-copy { width: 380px; position: relative; }
+
+        /* Área de copy optimizada con botón */
+        .copy-box {
+            background-color: #fafafa;
+            border: 1px solid #e4e4e7;
+            border-radius: 6px;
+            padding: 10px;
+            max-height: 140px;
+            overflow-y: auto;
+            white-space: pre-line;
+            font-size: 11.5px;
+            font-family: inherit;
+            color: #3f3f46;
+            margin-bottom: 6px;
+        }
+
+        .btn-copy-excel {
+            background-color: #107c41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.1s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-copy-excel:hover {
+            background-color: #0b592e;
+        }
+
+        .btn-copy-excel.copied {
+            background-color: #10b981;
+        }
+
+        .cell-estado {
+            width: 100px;
+            text-align: center;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* VISTA DE HISTORIAS */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .story-card {
+            background-color: #fafafa;
+            border: 1px solid #d4d4d8;
+            border-radius: 6px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e4e4e7;
+            padding-bottom: 8px;
+            font-size: 11.5px;
+        }
+
+        .story-semana {
+            font-weight: 800;
+            color: #107c41;
+            text-transform: uppercase;
+        }
+
+        .story-tema {
+            background-color: #eaf5ec;
+            color: #107c41;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 9.5px;
+        }
+
+        .story-body {
+            font-size: 12px;
+            color: #3f3f46;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .story-cta {
+            background-color: white;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        /* Vacío */
+        .empty-state {
+            padding: 50px 30px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .empty-state h3 {
+            font-size: 15px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 12px;
+            max-width: 400px;
+            margin: 0 auto 12px auto;
+        }
+
+        .empty-state button {
+            background-color: #107c41;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f4f4f5;
+            border-top: 1px solid #d4d4d8;
+            padding: 12px;
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <h1>📊 Libro_Calendarios_Junio.xlsx</h1>
+            <p>Yami & Mechi • Planificación de Redes Sociales</p>
+        </div>
+        <div class="share-badge">📁 Carpeta Compartible en Google Drive / Dropbox</div>
+    </header>
+
+    <div class="app-container">
+        
+        <!-- SIDEBAR (Hojas del Libro de Cuentas) -->
+        <div class="sidebar">
+            <div class="sidebar-card">
+                <h3>📖 Hojas del Libro</h3>
+                <ul class="account-list" id="accounts-menu">
+                    <!-- Se inyecta dinámicamente -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- PANEL DE EXCEL -->
+        <div class="main-panel">
+            
+            <!-- Info Cabecera -->
+            <div class="account-header" id="selected-account-header">
+                <!-- Se inyecta con JS -->
+            </div>
+
+            <!-- Selector de Pestañas de Vista (Feed / Historias) -->
+            <div class="excel-sheet-tabs">
+                <button class="sheet-tab-btn active" id="tab-feed" onclick="switchTab('feed')">Planilla de Publicaciones (Feed) 📊</button>
+                <button class="sheet-tab-btn" id="tab-stories" onclick="switchTab('stories')">Estrategia de Historias (Stories) 📸</button>
+            </div>
+
+            <!-- TABLA EXCEL CONTENEDOR -->
+            <div class="excel-container" id="content-viewer">
+                <!-- Se inyecta con JS -->
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        Microsoft Excel Online Viewer • Yami & Mechi Team 2026
+    </footer>
+
+    <!-- Cargamos la base de datos de los calendarios -->
+    <script src="data_calendarios.js"></script>
+    <script>
+        let currentAccount = "Integrar_Cuidados";
+        let currentTab = "feed";
+
+        function initApp() {
+            renderAccountsMenu();
+            selectAccount(currentAccount);
+        }
+
+        function renderAccountsMenu() {
+            const menu = document.getElementById("accounts-menu");
+            menu.innerHTML = "";
+            
+            Object.keys(CALENDARIOS_DATA).forEach(key => {
+                const acc = CALENDARIOS_DATA[key];
+                const activeClass = key === currentAccount ? "active" : "";
+                const count = acc.publicaciones ? acc.publicaciones.length : 0;
+                
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <button class="account-btn ${activeClass}" onclick="selectAccount('${key}')">
+                        <strong>📊 ${acc.nombre}</strong>
+                        <span class="rubro">${acc.rubro} (${count} filas)</span>
+                    </button>
+                `;
+                menu.appendChild(li);
+            });
+        }
+
+        function selectAccount(key) {
+            currentAccount = key;
+            renderAccountsMenu();
+
+            const acc = CALENDARIOS_DATA[key];
+            const header = document.getElementById("selected-account-header");
+            
+            let objetivosHtml = "";
+            if (acc.objetivos && acc.objetivos.length > 0 && acc.objetivos[0] !== "") {
+                objetivosHtml = `
+                    <div class="objectives-box">
+                        <h4>🎯 Foco Estratégico y Objetivos del Mes</h4>
+                        <ul>
+                            ${acc.objetivos.map(obj => `<li>${obj}</li>`).join("")}
+                        </ul>
+                    </div>
+                `;
+            }
+
+            header.innerHTML = `
+                <h2>Pestaña Activa: ${acc.nombre}</h2>
+                ${objetivosHtml}
+            `;
+
+            renderContent();
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById("tab-feed").classList.toggle("active", tab === "feed");
+            document.getElementById("tab-stories").classList.toggle("active", tab === "stories");
+            renderContent();
+        }
+
+        function renderContent() {
+            const acc = CALENDARIOS_DATA[currentAccount];
+            const container = document.getElementById("content-viewer");
+            container.innerHTML = "";
+
+            if (currentTab === "feed") {
+                if (!acc.publicaciones || acc.publicaciones.length === 0) {
+                    renderEmptyState(container);
+                    return;
+                }
+
+                // Renderizamos la barra de herramientas de la tabla de Excel (Tabla_1)
+                const tableBar = document.createElement("div");
+                tableBar.className = "excel-table-bar";
+                tableBar.innerHTML = `
+                    <div class="table-label">Tabla_1</div>
+                    <button class="excel-icon-btn">fx</button>
+                    <button class="excel-icon-btn">Σ AutoSuma</button>
+                `;
+                container.appendChild(tableBar);
+
+                const wrapper = document.createElement("div");
+                wrapper.className = "excel-table-wrapper";
+
+                let rowsHtml = acc.publicaciones.map((pub, idx) => {
+                    let statusClass = "status-pendiente";
+                    if (pub.estado.includes("Redactando")) statusClass = "status-redaccion";
+                    if (pub.estado.includes("Programado") || pub.estado.includes("Publicado")) statusClass = "status-programado";
+
+                    return `
+                        <tr>
+                            <td class="col-entrega">${pub.fechaEntrega}</td>
+                            <td class="col-publicacion">${pub.fechaPublicacion}</td>
+                            <td class="col-tema">${pub.tema}</td>
+                            <td class="col-tipo">${pub.tipo}</td>
+                            <td class="col-formato">${pub.formato}</td>
+                            <td class="col-diseno">${pub.indicacionesDiseno.replace(/\n/g, '<br>')}</td>
+                            <td class="col-copy">
+                                <div class="copy-box" id="copytext-${idx}">${pub.copy}</div>
+                                <button class="btn-copy-excel" onclick="copyToClipboard('${idx}', this)">
+                                    📋 Copiar Copy
+                                </button>
+                            </td>
+                            <td class="cell-estado">
+                                <span class="status-pill ${statusClass}">${pub.estado}</span>
+                            </td>
+                        </tr>
+                    `;
+                }).join("");
+
+                wrapper.innerHTML = `
+                    <table class="excel-table">
+                        <thead>
+                            <tr>
+                                <th><div class="th-content">fecha de entrega <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Fecha de Publicación <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Tema <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Tipo <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Formato <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Indicaciones para el diseño <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Copy <span class="filter-arrow">▼</span></div></th>
+                                <th><div class="th-content">Estado <span class="filter-arrow">▼</span></div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rowsHtml}
+                        </tbody>
+                    </table>
+                `;
+                container.appendChild(wrapper);
+
+            } else {
+                if (!acc.historias || acc.historias.length === 0) {
+                    renderEmptyState(container);
+                    return;
+                }
+
+                const grid = document.createElement("div");
+                grid.className = "stories-grid";
+
+                acc.historias.forEach(st => {
+                    const card = document.createElement("div");
+                    card.className = "story-card";
+                    
+                    let ctaHtml = st.cta ? `<div class="story-cta">🎯 CTA: ${st.cta}</div>` : "";
+                    let interaccionHtml = st.interaccion && st.interaccion !== "Ninguna" ? `<div><strong>Interacción:</strong> <span>${st.interaccion}</span></div>` : "";
+
+                    card.innerHTML = `
+                        <div class="story-header">
+                            <span class="story-semana">${st.semana}</span>
+                            <span class="story-tema">${st.tema}</span>
+                        </div>
+                        <div class="story-body">
+                            <div><strong>Visual / Indicación:</strong> <span>${st.visual}</span></div>
+                            ${interaccionHtml}
+                        </div>
+                        ${ctaHtml}
+                    `;
+                    grid.appendChild(card);
+                });
+                container.appendChild(grid);
+            }
+        }
+
+        function renderEmptyState(container) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>Planilla de Publicaciones Vacía</h3>
+                    <p>Aún no hemos redactado la grilla de publicaciones para esta pestaña del libro. ¡Completemos los datos en el chat para escribir las filas de esta cuenta!</p>
+                    <button onclick="alert('Respondé la pregunta de la IA en el chat para habilitar esta cuenta.')">
+                        Cargar Datos en el Chat 💬
+                    </button>
+                </div>
+            `;
+        }
+
+        function copyToClipboard(id, btn) {
+            const el = document.getElementById(`copytext-${id}`);
+            const text = el.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = "✅ ¡Copiado!";
+                btn.classList.add("copied");
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove("copied");
+                }, 1500);
+            }).catch(err => {
+                alert("Error al copiar: " + err);
+            });
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
